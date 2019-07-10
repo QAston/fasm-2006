@@ -1,0 +1,51 @@
+Retry Pong:
+* 2 graczy
+-cz³owiek
+- komputer w 3-ech stopniach zaawansowania
+-2-gi cz³owiek
+* 1 pi³ka
+* 2 kolory
+* Gra pod MS-DOS
+
+Zasady :)
+1.pi³ka na pocz¹tku wylatuje ze œrodka pola w losowym kierunku [1 z 4mozliwych]
+2. Pi³ka odbija sie od tacek i œcian bocznych [œciany te s¹ po bokach ekranu]
+3. Jak pi³ka wpadnie za tackê gracz,to ten gracz przegrywa
+4.Gracz, który zdobywa punkt pzyklejon¹ do tacki pi³kê i mo¿e j¹ zaserwowaæ
+5. Pi³ka zachowuje siê zgodnie z prawami fizyki[odbija siê pod tym samym k¹tem]
+opcjonalne:
+
+
+Dzia³anie: 
+1 Zmienna okreœlaj¹ca pozycjê pi³ki
+2 zmienna okreœlaj¹ca po³o¿enie tacki I gracza
+3 zmienna okreœlaj¹ca po³o¿enie tacki II gracza
+4 Zmienne punktów dla graczy
+5Pi³ka porusza sie w czterech skoœnych kierunkach
+  _	 _
+  /|	|\
+ / 	  \
+
+ \	  /
+  \|    |/
+  -	 -
+
+Pi³ka po uderzeniu w powierzchnie bêdzie sprawdzaæ czy uderzy³a w pionowa, poziom¹ czy w kant. Jeœli pionowa to odwraca kierunek w pionie
+		    Jeœli pozioma to odwraca kierunek w poziomie
+		    Jeœli kant to zwrot zmienia siê na przeciwny
+
+bity: 1,0
+  _		 _
+  /|[11]	|\ [01]
+ / 	  	  \
+
+ \	  	  /
+  \|[10]    	|/  [00]
+  -	 	 -
+							
+Jeœli pionowa to odwraca kierunek w pionie	not 1 bit	
+Jeœli pozioma to odwraca kierunek w poziomie	not 0 bit	
+Jeœli kant to zwrot zmienia siê na przeciwny	not 1i0 bit	
+
+6 tryb 128/128 pixeli
+

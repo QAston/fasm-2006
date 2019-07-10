@@ -1,0 +1,25 @@
+1Menu g³owne:
+*wyzwania
+*gra: 2,4 graczy lub komputerów, ka¿dy na ka¿dego, 2 na 2 ,3 na 1
+*opcje:
+-zmiana sterowania i wygl¹du paletek graczy
+-wybor planszy
+-wybór pilki
+-ile punktow musi miec zwyciezca
+-czy gramy do przewagi 2 pkt
+-czy wlaczone sa bonusy
+-wybor tla
+-czy pilka lata non stop czy sie ja serwuje
+-czy ruchy sa w jednej plaszczyznie, czy w dwoch
+-jak sa w jednej plaszczyznie, to czy sie przyblizaja paletki
+-ustal predkosc pilki[poczatkowa, koncowa]
+
+*autorzy
+*wyjscie
+2. szczego³y:
+-obsluga myszy w menu
+-wiele rozniastych rochow pilki
+-bonusy: wiele pilek, sciana, odwrocenie ruchow
+-bonus ma ten, ktory ostatni dotknal pilki nim ta walnela
+-jest celownik do serwow
+-

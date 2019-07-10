@@ -1,0 +1,258 @@
+keyboard_int:
+        push    eax
+
+
+      .read:
+        in      al,60h                  ; read scan code
+        movzx   eax,al
+
+;        push    eax
+;        in al, 21h ;Read existing bits.
+;        or  al, 2 ;Turn on IRQ 4 (COM1).
+;        out 21h, al ;Write result back to PIC.
+;        pop eax
+;        push    eax
+;        mov     al,0adh
+;        out     64h,al
+;        pop     eax
+
+
+;        push    eax
+;        mov     al,20h
+;        out     64h,al
+;        wait
+;        in      al,60h
+;        and      al,11111110b
+;        push    ax
+;        mov     al,60h
+;        out     64h,al
+;        wait
+;        pop     ax
+;        out     60h,al
+;        pop     eax
+
+;        push    eax
+;        mov     al,20h
+;        out     64h,al
+;        wait
+;        in      al,60h
+;        or      al,1
+;        push    ax
+;        mov     al,60h
+;        out     64h,al
+ ;       wait
+;        pop     ax
+;        out     60h,al
+;        pop     eax
+
+        cmp     al,0E0h
+        jae     .done
+        test    al,80h
+        jz      .pressed
+        and     al,7Fh
+
+
+;        push    eax
+ ;       in      al, 21h ;Read existing bits.
+  ;      or      al, 2 ;Turn on IRQ 4 (COM1).
+   ;     out     21h, al ;Write result back to PIC.
+    ;    pop     eax
+
+      ;  push    eax
+     ;   mov     al,0adh
+     ;   out     64h,al
+     ;   pop     eax
+     ;   cli
+        mov     byte[ES:BKeyboard+eax],0
+
+      ;  push    eax
+     ;   mov     al,0aeh
+    ;    out     64h,al
+   ;     pop     eax
+
+      ;  push     eax
+       ; in       al, 21h ;Read existing bits.
+     ;   and      al,11111101b ;Turn on IRQ 4 (COM1).
+    ;    out      21h, al ;Write result back to PIC.
+   ;     pop      eax
+
+        jmp     .done
+
+      .pressed:
+;        mov     byte[es:Key],1
+;        cmp     byte[ES:BKeyboard+eax],0
+;        jne     .done
+
+;        push    eax
+;        in al, 21h ;Read existing bits.
+;        or  al, 2 ;Turn on IRQ 4 (COM1).
+;        out 21h, al ;Write result back to PIC.
+;        pop      eax
+
+   ;     push    eax
+  ;      mov     al,0adh
+  ;      out     64h,al
+  ;      pop     eax
+  ;      cli
+        mov     byte[es:BKeyboard+eax],1
+  ;sti
+;        push    eax
+;        mov     al,0aeh
+ ;       out     64h,al
+ ;       pop     eax
+
+;        push     eax
+ ;       in al, 21h ;Read existing bits.
+  ;      and  al,11111101b ;Turn on IRQ 4 (COM1).
+  ;      out 21h, al ;Write result back to PIC.
+  ;      pop      eax
+      .done:
+
+ ;       push     eax
+;        in al, 21h ;Read existing bits.
+;        and  al,11111101b ;Turn on IRQ 4 (COM1).
+;        out 21h, al ;Write result back to PIC.
+;        pop      eax
+
+        in      al,64h
+        test    al,1
+        jnz     .read
+
+;        push    eax
+;        mov     al,0aeh
+;        out     64h,al
+;        pop     eax
+
+        in      al,61h                  ; give finishing information
+        wait
+        out     61h,al                  ; to keyboard...
+
+
+        mov     al,20h
+        out     20h,al                  ; ...and interrupt controller
+
+
+        pop     eax
+        iretd  
+
+;        mov     eax,0204h                    ; zmien int 09
+;        mov     ebx,9
+;        int     31h
+;        mov     [OfsOldKeyInt],edx
+;        mov     [SelOldKeyInt],cx
+
+;        mov     ax,0205h                    ; zmien int 09
+;        mov     edx,keyboard_int
+;        push    cs
+;        xor     ecx,ecx
+;        pop     cx
+;        mov     ebx,9
+;        int     31h
+
+;        mov     al,0f3h;60h
+;        out     60h,al
+;        mov     ax,0f360h
+;        out     60h,ax
+
+;        mov     al,01111111b
+;        out     60h,al
+;lin al, 21h
+;land al, 11111101b ;Turn on IRQ 4 (COM1).
+;out 21h, al ;Write result back to PIC. 
+
+
+
+
+
+
+
+
+
+
+
+menu_keys:
+
+
+
+
+mainloop:
+
+        call    clearkey
+
+        call    readkeyboard
+
+        cmp     al,1
+        jne     mainloop
+        ;sti
+        int     20h
+
+readkeyboardrealtime:
+ .wait:  in al,$64
+         bt ax,0
+         jnc .wait                               ;wait for keyboard data
+         in al,$60
+         ret
+
+ait:
+        in      al,$64
+        bt      ax,0
+        jnc     ait
+
+
+keyboard_check:
+        push    eax
+        xor     cx,cx
+       .wait:
+       inc      cx
+       cmp      cx,0fffh
+       je       .done
+        in      al,$64
+        bt      ax,0
+        jnc     .wait                       ;wait for keyboard data
+      .read:
+        in      al,60h                  ; read scan code
+        movzx   eax,al
+        cmp     al,0E0h
+        jae     .done
+        test    al,80h
+        jz      .pressed
+        and     al,7Fh
+        mov     byte[ES:BKeyboard+eax],0
+        jmp     .done
+      .pressed:
+        mov     [es:Key],1
+        cmp     byte[ES:BKeyboard+eax],0
+        jne     .done
+        mov     byte[es:BKeyboard+eax],1
+      .done:
+;        in      al,64h
+;        test    al,1
+;        jnz     .read
+        pop     eax
+
+readkeyboard: 
+in al,$60 
+ret 
+
+waitkeyboardchange: ; does not wait busy, (windows and other) uses al,bl 
+in al,$60; because buffer ready bit is cleared after reading 
+mov bl,al 
+.wait2: 
+in al,$60 
+cmp al,bl 
+jz .wait2 
+ret 
+
+clearkey:   ;Clears keystroke buffer directly ( $0040:$001A := $0040:$001C ) 
+push ds 
+push es 
+ mov ax,$40 
+ mov es,ax 
+ mov ds,ax 
+ mov di,$1a 
+ mov si,$1c 
+ movsw 
+pop es 
+pop ds 
+ret
+        jmp     menu_loop       

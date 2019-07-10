@@ -1,0 +1,9 @@
+*instalacja i deinstalacja
+*Edytor w ktorym modyfikuje sie:
+-date wielkanocy
+-¿yczenia
+-melodiê
+-obrazek
+-czy jest :"¿yczy Darek"
+-czy ma sie uruchamiaæ tylko raz dziennie
+*losowe zyczenia

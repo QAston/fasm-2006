@@ -1,0 +1,1859 @@
+;--------------------------------------------API-----------------------------------------------
+	extrn	GetModuleHandleA		:proc
+	extrn	LoadIconA			:proc
+	extrn	LoadCursorA			:proc
+	extrn	RegisterClassA			:proc
+	extrn	ChangeDisplaySettingsA		:proc
+	extrn	ShowCursor			:proc
+	extrn	AdjustWindowRectEx		:proc
+	extrn	CreateWindowExA			:proc
+	extrn	MessageBoxA			:proc
+	extrn	ExitProcess			:proc
+	extrn	DefWindowProcA			:proc
+	extrn	GetDC				:proc
+	extrn	ChoosePixelFormat		:proc
+	extrn	SetPixelFormat			:proc
+	extrn	ShowWindow			:proc
+	extrn	CloseWindow			:proc
+	extrn	SetForegroundWindow		:proc
+	extrn	SetFocus			:proc
+	extrn	ChangeDisplaySettingsA		:proc
+	extrn	ReleaseDC			:proc
+	extrn	DestroyWindow			:proc
+	extrn	UnregisterClassA		:proc
+	extrn	SwapBuffers			:proc
+	extrn	PostQuitMessage			:proc
+
+	extrn	wglCreateContext		:proc
+	extrn	wglMakeCurrent			:proc
+	extrn	wglDeleteContext		:proc
+	extrn	glViewport			:proc
+	extrn	glMatrixMode			:proc
+	extrn	glLoadIdentity			:proc
+	extrn	gluPerspective			:proc
+	extrn	glMatrixMode			:proc
+	extrn	glEnable			:proc
+	extrn	glDepthFunc			:proc
+	extrn	GetMessageA			:proc
+	extrn	TranslateMessage		:proc
+	extrn	DispatchMessageA		:proc
+	extrn	PeekMessageA			:proc
+	extrn	glClear				:proc
+	extrn	glBegin				:proc
+	extrn	glColor3f			:proc
+	extrn	glVertex2f			:proc
+	extrn	glEnd				:proc
+	extrn	glFlush				:proc
+	extrn	glColor3d			:proc
+	extrn	glVertex3f			:proc
+	extrn	glColor3d			:proc
+	extrn	glRotatef			:proc
+	extrn	glTranslatef			:proc
+	extrn	glNewList			:proc
+	extrn	glEndList			:proc
+	extrn	glCallList			:proc
+	extrn	glShadeModel			:proc
+	extrn	glClearColor			:proc
+	extrn	glClearDepth			:proc
+	extrn	glHint				:proc
+	extrn	gluLookAt			:proc
+	
+;-----------------------------------------WIN CONST---------------------------------------------
+FALSE			equ	0
+TRUE			equ	1
+
+VK_BACK                              equ 8h
+VK_CANCEL                            equ 3h
+VK_CAPITAL                           equ 14h
+VK_CLEAR                             equ 0Ch
+VK_CONTROL                           equ 11h
+VK_DELETE                            equ 2Eh
+VK_DOWN                              equ 28h
+VK_END                               equ 23h
+VK_ESCAPE                            equ 1Bh
+VK_EXECUTE                           equ 2Bh
+VK_HELP                              equ 2Fh
+VK_HOME                              equ 24h
+VK_INSERT                            equ 2Dh
+VK_LBUTTON                           equ 1h
+VK_LEFT                              equ 25h
+VK_MBUTTON                           equ 4h
+VK_MENU                              equ 12h
+VK_NEXT                              equ 22h
+VK_PAUSE                             equ 13h
+VK_PGDN                              equ 22h
+VK_PGUP                              equ 21h
+VK_PRINT                             equ 2Ah
+VK_PRIOR                             equ 21h
+VK_RBUTTON                           equ 2h
+VK_RETURN                            equ 0Dh
+VK_RIGHT                             equ 27h
+VK_SELECT                            equ 29h
+VK_SHIFT                             equ 10h
+VK_SNAPSHOT                          equ 2Ch
+VK_SPACE                             equ 20h
+VK_TAB                               equ 9h
+VK_UP                                equ 26h
+VK_NUMPAD0                           equ 60h
+VK_NUMPAD1                           equ 61h
+VK_NUMPAD2                           equ 62h
+VK_NUMPAD3                           equ 63h
+VK_NUMPAD4                           equ 64h
+VK_NUMPAD5                           equ 65h
+VK_NUMPAD6                           equ 66h
+VK_NUMPAD7                           equ 67h
+VK_NUMPAD8                           equ 68h
+VK_NUMPAD9                           equ 69h
+VK_MULTIPLY                          equ 6Ah
+VK_ADD                               equ 6Bh
+VK_SEPARATOR                         equ 6Ch
+VK_SUBTRACT                          equ 6Dh
+VK_DECIMAL                           equ 6Eh
+VK_DIVIDE                            equ 6Fh
+VK_F1                                equ 70h
+VK_F2                                equ 71h
+VK_F3                                equ 72h
+VK_F4                                equ 73h
+VK_F5                                equ 74h
+VK_F6                                equ 75h
+VK_F7                                equ 76h
+VK_F8                                equ 77h
+VK_F9                                equ 78h
+VK_F10                               equ 79h
+VK_F11                               equ 7Ah
+VK_F12                               equ 7Bh
+VK_F13                               equ 7Ch
+VK_F14                               equ 7Dh
+VK_F15                               equ 7Eh
+VK_F16                               equ 7Fh
+VK_F17                               equ 80h
+VK_F18                               equ 81h
+VK_F19                               equ 82h
+VK_F20                               equ 83h
+VK_F21                               equ 84h
+VK_F22                               equ 85h
+VK_F23                               equ 86h
+VK_F24                               equ 87h
+VK_NUMLOCK                           equ 90h
+VK_SCROLL                            equ 91h
+VK_LSHIFT                            equ 0A0h
+VK_RSHIFT                            equ 0A1h
+VK_LCONTROL                          equ 0A2h
+VK_RCONTROL                          equ 0A3h
+VK_LMENU                             equ 0A4h
+VK_RMENU                             equ 0A5h
+VK_ATTN                              equ 0F6h
+VK_CRSEL                             equ 0F7h
+VK_EXSEL                             equ 0F8h
+VK_EREOF                             equ 0F9h
+VK_PLAY                              equ 0FAh
+VK_ZOOM                              equ 0FBh
+VK_NONAME                            equ 0FCh
+VK_PA1                               equ 0FDh
+VK_OEM_CLEAR                         equ 0FEh
+VK_0						 equ 30h
+VK_1						 equ 31h
+VK_2						 equ 32h
+VK_3						 equ 33h
+VK_4						 equ 34h
+VK_5						 equ 35h
+VK_6						 equ 36h
+VK_7						 equ 37h
+VK_8						 equ 38h
+VK_9						 equ 39h
+VK_A						 equ 41h
+VK_B						 equ 42h
+VK_C						 equ 43h
+VK_D						 equ 44h
+VK_E						 equ 45h
+VK_F						 equ 46h
+VK_G						 equ 47h
+VK_H						 equ 48h
+VK_I						 equ 49h
+VK_J						 equ 4Ah
+VK_K						 equ 4Bh
+VK_L						 equ 4Ch
+VK_M						 equ 4Dh
+VK_N						 equ 4Eh
+VK_O						 equ 4Fh
+VK_P						 equ 50h
+VK_Q						 equ 51h
+VK_R						 equ 52h
+VK_S						 equ 53h
+VK_T						 equ 54h
+VK_U						 equ 55h
+VK_V						 equ 56h
+VK_W						 equ 57h
+VK_X						 equ 58h
+VK_Y						 equ 59h
+VK_Z						 equ 5Ah
+
+
+WM_QUIT			equ	12h
+WM_SIZE			equ	5h
+WM_KEYUP		equ	101h
+WM_KEYDOWN		equ	100h
+WM_CLOSE		equ	10h
+WM_SYSCOMMAND		equ	112h
+WM_ACTIVATE		equ	6h
+WM_DESTROY		equ	2h
+WM_LBUTTONDOWN		equ	201h
+CS_HREDRAW		equ	2h
+CS_VREDRAW		equ	1h
+CS_OWNDC		equ	20h
+IDI_WINLOGO		equ	0
+IDC_ARROW		equ	0
+DM_BITSPERPEL		equ	40000h
+DM_PELSWIDTH		equ	80000h
+DM_PELSHEIGHT		equ	100000h
+CDS_FULLSCREEN		equ	4h
+WS_EX_APPWINDOW		equ	40000h
+WS_EX_DLGMODALFRAME     equ     1h
+WS_POPUP		equ	80000000h
+WS_CLIPSIBLINGS		equ	4000000h
+WS_CLIPCHILDREN		equ	2000000h
+WS_SYSMENU              equ     80000h
+WS_MINIMIZEBOX          equ     20000h
+
+PFD_DRAW_TO_WINDOW	equ	4h
+PFD_SUPPORT_OPENGL	equ	20h
+PFD_DOUBLEBUFFER	equ	1h
+PFD_TYPE_RGBA		equ	0h
+PFD_MAIN_PLANE		equ	0h
+SW_SHOW			equ	5h
+PM_REMOVE		equ	1h
+
+;----------------------------------------OpenGL CONST------------------------------------------
+
+GL_VERSION_1_1          equ  1
+GL_ACCUM                equ  00100h
+GL_LOAD                 equ  00101h
+GL_RETURN               equ  00102h
+GL_MULT                 equ  00103h
+GL_ADD                  equ  00104h
+GL_NEVER                equ  00200h
+GL_LESS                 equ  00201h
+GL_EQUAL                equ  00202h
+GL_LEQUAL               equ  00203h
+GL_GREATER              equ  00204h
+GL_NOTEQUAL             equ  00205h
+GL_GEQUAL               equ  00206h
+GL_ALWAYS               equ  00207h
+GL_CURRENT_BIT          equ  000000001h
+GL_POINT_BIT            equ  000000002h
+GL_LINE_BIT             equ  000000004h
+GL_POLYGON_BIT          equ  000000008h
+GL_POLYGON_STIPPLE_BIT  equ  000000010h
+GL_PIXEL_MODE_BIT       equ  000000020h
+GL_LIGHTING_BIT         equ  000000040h
+GL_FOG_BIT              equ  000000080h
+GL_DEPTH_BUFFER_BIT     equ  000000100h
+GL_ACCUM_BUFFER_BIT     equ  000000200h
+GL_STENCIL_BUFFER_BIT   equ  000000400h
+GL_VIEWPORT_BIT         equ  000000800h
+GL_TRANSFORM_BIT        equ  000001000h
+GL_ENABLE_BIT           equ  000002000h
+GL_COLOR_BUFFER_BIT     equ  000004000h
+GL_HINT_BIT             equ  000008000h
+GL_EVAL_BIT             equ  000010000h
+GL_LIST_BIT             equ  000020000h
+GL_TEXTURE_BIT          equ  000040000h
+GL_SCISSOR_BIT          equ  000080000h
+GL_ALL_ATTRIB_BITS      equ  0000fffffh
+GL_POINTS               equ  00000h
+GL_LINES                equ  00001h
+GL_LINE_LOOP            equ  00002h
+GL_LINE_STRIP           equ  00003h
+GL_TRIANGLES            equ  00004h
+GL_TRIANGLE_STRIP       equ  00005h
+GL_TRIANGLE_FAN         equ  00006h
+GL_QUADS                equ  00007h
+GL_QUAD_STRIP           equ  00008h
+GL_POLYGON              equ  00009h
+GL_ZERO                 equ  0
+GL_ONE                  equ  1
+GL_SRC_COLOR            equ  00300h
+GL_ONE_MINUS_SRC_COLOR  equ  00301h
+GL_SRC_ALPHA            equ  00302h
+GL_ONE_MINUS_SRC_ALPHA  equ  00303h
+GL_DST_ALPHA            equ  00304h
+GL_ONE_MINUS_DST_ALPHA  equ  00305h
+GL_DST_COLOR            equ  00306h
+GL_ONE_MINUS_DST_COLOR  equ  00307h
+GL_SRC_ALPHA_SATURATE   equ  00308h
+GL_TRUE                 equ  1
+GL_FALSE                equ  0
+GL_CLIP_PLANE0          equ  03000h
+GL_CLIP_PLANE1           equ  03001h
+GL_CLIP_PLANE2            equ  03002h
+GL_CLIP_PLANE3             equ  03003h
+GL_CLIP_PLANE4              equ  03004h
+GL_CLIP_PLANE5               equ  03005h
+GL_BYTE                       equ  01400h
+GL_UNSIGNED_BYTE               equ  01401h
+GL_SHORT                        equ  01402h
+GL_UNSIGNED_SHORT                equ  01403h
+GL_INT                            equ  01404h
+GL_UNSIGNED_INT                    equ  01405h
+GL_FLOAT                           equ  01406h
+GL_2_BYTES                         equ  01407h
+GL_3_BYTES                         equ  01408h
+GL_4_BYTES                         equ  01409h
+GL_DOUBLE                          equ  0140Ah
+GL_NONE                            equ  0
+GL_FRONT_LEFT                      equ  00400h
+GL_FRONT_RIGHT                     equ  00401h
+GL_BACK_LEFT                       equ  00402h
+GL_BACK_RIGHT                      equ  00403h
+GL_FRONT                           equ  00404h
+GL_BACK                            equ  00405h
+GL_LEFT                            equ  00406h
+GL_RIGHT                           equ  00407h
+GL_FRONT_AND_BACK                  equ  00408h
+GL_AUX0                            equ  00409h
+GL_AUX1                            equ  0040Ah
+GL_AUX2                            equ  0040Bh
+GL_AUX3                            equ  0040Ch
+GL_NO_ERROR                        equ  0
+GL_INVALID_ENUM                    equ  00500h
+GL_INVALID_VALUE                   equ  00501h
+GL_INVALID_OPERATION               equ  00502h
+GL_STACK_OVERFLOW                  equ  00503h
+GL_STACK_UNDERFLOW                 equ  00504h
+GL_OUT_OF_MEMORY                   equ  00505h
+GL_2D                              equ  00600h
+GL_3D                              equ  00601h
+GL_3D_COLOR                        equ  00602h
+GL_3D_COLOR_TEXTURE                equ  00603h
+GL_4D_COLOR_TEXTURE                equ  00604h
+GL_PASS_THROUGH_TOKEN              equ  00700h
+GL_POINT_TOKEN                     equ  00701h
+GL_LINE_TOKEN                      equ  00702h
+GL_POLYGON_TOKEN                   equ  00703h
+GL_BITMAP_TOKEN                    equ  00704h
+GL_DRAW_PIXEL_TOKEN                equ  00705h
+GL_COPY_PIXEL_TOKEN                equ  00706h
+GL_LINE_RESET_TOKEN                equ  00707h
+GL_EXP                             equ  00800h
+GL_EXP2                            equ  00801h
+GL_CW                              equ  00900h
+GL_CCW                             equ  00901h
+GL_COEFF                           equ  00A00h
+GL_ORDER                           equ  00A01h
+GL_DOMAIN                          equ  00A02h
+GL_CURRENT_COLOR                   equ  00B00h
+GL_CURRENT_INDEX                   equ  00B01h
+GL_CURRENT_NORMAL                  equ  00B02h
+GL_CURRENT_TEXTURE_COORDS          equ  00B03h
+GL_CURRENT_RASTER_COLOR            equ  00B04h
+GL_CURRENT_RASTER_INDEX            equ  00B05h
+GL_CURRENT_RASTER_TEXTURE_COORDS   equ  00B06h
+GL_CURRENT_RASTER_POSITION         equ  00B07h
+GL_CURRENT_RASTER_POSITION_VALID   equ  00B08h
+GL_CURRENT_RASTER_DISTANCE         equ  00B09h
+GL_POINT_SMOOTH                    equ  00B10h
+GL_POINT_SIZE                      equ  00B11h
+GL_POINT_SIZE_RANGE                equ  00B12h
+GL_POINT_SIZE_GRANULARITY          equ  00B13h
+GL_LINE_SMOOTH                     equ  00B20h
+GL_LINE_WIDTH                      equ  00B21h
+GL_LINE_WIDTH_RANGE                equ  00B22h
+GL_LINE_WIDTH_GRANULARITY          equ  00B23h
+GL_LINE_STIPPLE                    equ  00B24h
+GL_LINE_STIPPLE_PATTERN            equ  00B25h
+GL_LINE_STIPPLE_REPEAT             equ  00B26h
+GL_LIST_MODE                       equ  00B30h
+GL_MAX_LIST_NESTING                equ  00B31h
+GL_LIST_BASE                       equ  00B32h
+GL_LIST_INDEX                      equ  00B33h
+GL_POLYGON_MODE                    equ  00B40h
+GL_POLYGON_SMOOTH                  equ  00B41h
+GL_POLYGON_STIPPLE                 equ  00B42h
+GL_EDGE_FLAG                       equ  00B43h
+GL_CULL_FACE                       equ  00B44h
+GL_CULL_FACE_MODE                  equ  00B45h
+GL_FRONT_FACE                      equ  00B46h
+GL_LIGHTING                        equ  00B50h
+GL_LIGHT_MODEL_LOCAL_VIEWER        equ  00B51h
+GL_LIGHT_MODEL_TWO_SIDE            equ  00B52h
+GL_LIGHT_MODEL_AMBIENT             equ  00B53h
+GL_SHADE_MODEL                     equ  00B54h
+GL_COLOR_MATERIAL_FACE             equ  00B55h
+GL_COLOR_MATERIAL_PARAMETER        equ  00B56h
+GL_COLOR_MATERIAL                  equ  00B57h
+GL_FOG                             equ  00B60h
+GL_FOG_INDEX                       equ  00B61h
+GL_FOG_DENSITY                     equ  00B62h
+GL_FOG_START                       equ  00B63h
+GL_FOG_END                         equ  00B64h
+GL_FOG_MODE                        equ  00B65h
+GL_FOG_COLOR                       equ  00B66h
+GL_DEPTH_RANGE                     equ  00B70h
+GL_DEPTH_TEST                      equ  00B71h
+GL_DEPTH_WRITEMASK                 equ  00B72h
+GL_DEPTH_CLEAR_VALUE               equ  00B73h
+GL_DEPTH_FUNC                      equ  00B74h
+GL_ACCUM_CLEAR_VALUE               equ  00B80h
+GL_STENCIL_TEST                    equ  00B90h
+GL_STENCIL_CLEAR_VALUE             equ  00B91h
+GL_STENCIL_FUNC                    equ  00B92h
+GL_STENCIL_VALUE_MASK              equ  00B93h
+GL_STENCIL_FAIL                    equ  00B94h
+GL_STENCIL_PASS_DEPTH_FAIL         equ  00B95h
+GL_STENCIL_PASS_DEPTH_PASS         equ  00B96h
+GL_STENCIL_REF                     equ  00B97h
+GL_STENCIL_WRITEMASK               equ  00B98h
+GL_MATRIX_MODE                     equ  00BA0h
+GL_NORMALIZE                       equ  00BA1h
+GL_VIEWPORT                        equ  00BA2h
+GL_MODELVIEW_STACK_DEPTH           equ  00BA3h
+GL_PROJECTION_STACK_DEPTH          equ  00BA4h
+GL_TEXTURE_STACK_DEPTH             equ  00BA5h
+GL_MODELVIEW_MATRIX                equ  00BA6h
+GL_PROJECTION_MATRIX               equ  00BA7h
+GL_TEXTURE_MATRIX                  equ  00BA8h
+GL_ATTRIB_STACK_DEPTH              equ  00BB0h
+GL_CLIENT_ATTRIB_STACK_DEPTH       equ  00BB1h
+GL_ALPHA_TEST                      equ  00BC0h
+GL_ALPHA_TEST_FUNC                 equ  00BC1h
+GL_ALPHA_TEST_REF                  equ  00BC2h
+GL_DITHER                          equ  00BD0h
+GL_BLEND_DST                       equ  00BE0h
+GL_BLEND_SRC                       equ  00BE1h
+GL_BLEND                           equ  00BE2h
+GL_LOGIC_OP_MODE                   equ  00BF0h
+GL_INDEX_LOGIC_OP                  equ  00BF1h
+GL_COLOR_LOGIC_OP                  equ  00BF2h
+GL_AUX_BUFFERS                     equ  00C00h
+GL_DRAW_BUFFER                     equ  00C01h
+GL_READ_BUFFER                     equ  00C02h
+GL_SCISSOR_BOX                     equ  00C10h
+GL_SCISSOR_TEST                    equ  00C11h
+GL_INDEX_CLEAR_VALUE               equ  00C20h
+GL_INDEX_WRITEMASK                 equ  00C21h
+GL_COLOR_CLEAR_VALUE               equ  00C22h
+GL_COLOR_WRITEMASK                 equ  00C23h
+GL_INDEX_MODE                      equ  00C30h
+GL_RGBA_MODE                       equ  00C31h
+GL_DOUBLEBUFFER                    equ  00C32h
+GL_STEREO                          equ  00C33h
+GL_RENDER_MODE                     equ  00C40h
+GL_PERSPECTIVE_CORRECTION_HINT     equ  00C50h
+GL_POINT_SMOOTH_HINT               equ  00C51h
+GL_LINE_SMOOTH_HINT                equ  00C52h
+GL_POLYGON_SMOOTH_HINT             equ  00C53h
+GL_FOG_HINT                        equ  00C54h
+GL_TEXTURE_GEN_S                   equ  00C60h
+GL_TEXTURE_GEN_T                   equ  00C61h
+GL_TEXTURE_GEN_R                   equ  00C62h
+GL_TEXTURE_GEN_Q                   equ  00C63h
+GL_PIXEL_MAP_I_TO_I                equ  00C70h
+GL_PIXEL_MAP_S_TO_S                equ  00C71h
+GL_PIXEL_MAP_I_TO_R                equ  00C72h
+GL_PIXEL_MAP_I_TO_G                equ  00C73h
+GL_PIXEL_MAP_I_TO_B                equ  00C74h
+GL_PIXEL_MAP_I_TO_A                equ  00C75h
+GL_PIXEL_MAP_R_TO_R                equ  00C76h
+GL_PIXEL_MAP_G_TO_G                equ  00C77h
+GL_PIXEL_MAP_B_TO_B                equ  00C78h
+GL_PIXEL_MAP_A_TO_A                equ  00C79h
+GL_PIXEL_MAP_I_TO_I_SIZE           equ  00CB0h
+GL_PIXEL_MAP_S_TO_S_SIZE           equ  00CB1h
+GL_PIXEL_MAP_I_TO_R_SIZE           equ  00CB2h
+GL_PIXEL_MAP_I_TO_G_SIZE           equ  00CB3h
+GL_PIXEL_MAP_I_TO_B_SIZE           equ  00CB4h
+GL_PIXEL_MAP_I_TO_A_SIZE           equ  00CB5h
+GL_PIXEL_MAP_R_TO_R_SIZE           equ  00CB6h
+GL_PIXEL_MAP_G_TO_G_SIZE           equ  00CB7h
+GL_PIXEL_MAP_B_TO_B_SIZE           equ  00CB8h
+GL_PIXEL_MAP_A_TO_A_SIZE           equ  00CB9h
+GL_UNPACK_SWAP_BYTES               equ  00CF0h
+GL_UNPACK_LSB_FIRST                equ  00CF1h
+GL_UNPACK_ROW_LENGTH               equ  00CF2h
+GL_UNPACK_SKIP_ROWS                equ  00CF3h
+GL_UNPACK_SKIP_PIXELS              equ  00CF4h
+GL_UNPACK_ALIGNMENT                equ  00CF5h
+GL_PACK_SWAP_BYTES                 equ  00D00h
+GL_PACK_LSB_FIRST                  equ  00D01h
+GL_PACK_ROW_LENGTH                 equ  00D02h
+GL_PACK_SKIP_ROWS                  equ  00D03h
+GL_PACK_SKIP_PIXELS                equ  00D04h
+GL_PACK_ALIGNMENT                  equ  00D05h
+GL_MAP_COLOR                       equ  00D10h
+GL_MAP_STENCIL                     equ  00D11h
+GL_INDEX_SHIFT                     equ  00D12h
+GL_INDEX_OFFSET                    equ  00D13h
+GL_RED_SCALE                       equ  00D14h
+GL_RED_BIAS                        equ  00D15h
+GL_ZOOM_X                          equ  00D16h
+GL_ZOOM_Y                          equ  00D17h
+GL_GREEN_SCALE                     equ  00D18h
+GL_GREEN_BIAS                      equ  00D19h
+GL_BLUE_SCALE                      equ  00D1Ah
+GL_BLUE_BIAS                       equ  00D1Bh
+GL_ALPHA_SCALE                     equ  00D1Ch
+GL_ALPHA_BIAS                      equ  00D1Dh
+GL_DEPTH_SCALE                     equ  00D1Eh
+GL_DEPTH_BIAS                      equ  00D1Fh
+GL_MAX_EVAL_ORDER                  equ  00D30h
+GL_MAX_LIGHTS                      equ  00D31h
+GL_MAX_CLIP_PLANES                 equ  00D32h
+GL_MAX_TEXTURE_SIZE                equ  00D33h
+GL_MAX_PIXEL_MAP_TABLE             equ  00D34h
+GL_MAX_ATTRIB_STACK_DEPTH          equ  00D35h
+GL_MAX_MODELVIEW_STACK_DEPTH       equ  00D36h
+GL_MAX_NAME_STACK_DEPTH            equ  00D37h
+GL_MAX_PROJECTION_STACK_DEPTH      equ  00D38h
+GL_MAX_TEXTURE_STACK_DEPTH         equ  00D39h
+GL_MAX_VIEWPORT_DIMS               equ  00D3Ah
+GL_MAX_CLIENT_ATTRIB_STACK_DEPTH   equ  00D3Bh
+GL_SUBPIXEL_BITS                   equ  00D50h
+GL_INDEX_BITS                      equ  00D51h
+GL_RED_BITS                        equ  00D52h
+GL_GREEN_BITS                      equ  00D53h
+GL_BLUE_BITS                       equ  00D54h
+GL_ALPHA_BITS                      equ  00D55h
+GL_DEPTH_BITS                      equ  00D56h
+GL_STENCIL_BITS                    equ  00D57h
+GL_ACCUM_RED_BITS                  equ  00D58h
+GL_ACCUM_GREEN_BITS                equ  00D59h
+GL_ACCUM_BLUE_BITS                 equ  00D5Ah
+GL_ACCUM_ALPHA_BITS                equ  00D5Bh
+GL_NAME_STACK_DEPTH                equ  00D70h
+GL_AUTO_NORMAL                     equ  00D80h
+GL_MAP1_COLOR_4                    equ  00D90h
+GL_MAP1_INDEX                      equ  00D91h
+GL_MAP1_NORMAL                     equ  00D92h
+GL_MAP1_TEXTURE_COORD_1            equ  00D93h
+GL_MAP1_TEXTURE_COORD_2            equ  00D94h
+GL_MAP1_TEXTURE_COORD_3            equ  00D95h
+GL_MAP1_TEXTURE_COORD_4            equ  00D96h
+GL_MAP1_VERTEX_3                   equ  00D97h
+GL_MAP1_VERTEX_4                   equ  00D98h
+GL_MAP2_COLOR_4                    equ  00DB0h
+GL_MAP2_INDEX                      equ  00DB1h
+GL_MAP2_NORMAL                     equ  00DB2h
+GL_MAP2_TEXTURE_COORD_1            equ  00DB3h
+GL_MAP2_TEXTURE_COORD_2            equ  00DB4h
+GL_MAP2_TEXTURE_COORD_3            equ  00DB5h
+GL_MAP2_TEXTURE_COORD_4            equ  00DB6h
+GL_MAP2_VERTEX_3                   equ  00DB7h
+GL_MAP2_VERTEX_4                   equ  00DB8h
+GL_MAP1_GRID_DOMAIN                equ  00DD0h
+GL_MAP1_GRID_SEGMENTS              equ  00DD1h
+GL_MAP2_GRID_DOMAIN                equ  00DD2h
+GL_MAP2_GRID_SEGMENTS              equ  00DD3h
+GL_TEXTURE_1D                      equ  00DE0h
+GL_TEXTURE_2D                      equ  00DE1h
+GL_FEEDBACK_BUFFER_POINTER         equ  00DF0h
+GL_FEEDBACK_BUFFER_SIZE            equ  00DF1h
+GL_FEEDBACK_BUFFER_TYPE            equ  00DF2h
+GL_SELECTION_BUFFER_POINTER        equ  00DF3h
+GL_SELECTION_BUFFER_SIZE           equ  00DF4h
+GL_TEXTURE_WIDTH                   equ  01000h
+GL_TEXTURE_HEIGHT                  equ  01001h
+GL_TEXTURE_INTERNAL_FORMAT         equ  01003h
+GL_TEXTURE_BORDER_COLOR            equ  01004h
+GL_TEXTURE_BORDER                  equ  01005h
+GL_DONT_CARE                       equ  01100h
+GL_FASTEST                         equ  01101h
+GL_NICEST                          equ  01102h
+GL_LIGHT0                          equ  04000h
+GL_LIGHT1                          equ  04001h
+GL_LIGHT2                          equ  04002h
+GL_LIGHT3                          equ  04003h
+GL_LIGHT4                          equ  04004h
+GL_LIGHT5                          equ  04005h
+GL_LIGHT6                          equ  04006h
+GL_LIGHT7                          equ  04007h
+GL_AMBIENT                         equ  01200h
+GL_DIFFUSE                         equ  01201h
+GL_SPECULAR                        equ  01202h
+GL_POSITION                        equ  01203h
+GL_SPOT_DIRECTION                  equ  01204h
+GL_SPOT_EXPONENT                   equ  01205h
+GL_SPOT_CUTOFF                     equ  01206h
+GL_CONSTANT_ATTENUATION            equ  01207h
+GL_LINEAR_ATTENUATION              equ  01208h
+GL_QUADRATIC_ATTENUATION           equ  01209h
+GL_COMPILE                         equ  01300h
+GL_COMPILE_AND_EXECUTE             equ  01301h
+GL_CLEAR                           equ  01500h
+GL_AND                             equ  01501h
+GL_AND_REVERSE                     equ  01502h
+GL_COPY                            equ  01503h
+GL_AND_INVERTED                    equ  01504h
+GL_NOOP                            equ  01505h
+GL_XOR                             equ  01506h
+GL_OR                              equ  01507h
+GL_NOR                             equ  01508h
+GL_EQUIV                           equ  01509h
+GL_INVERT                          equ  0150Ah
+GL_OR_REVERSE                      equ  0150Bh
+GL_COPY_INVERTED                   equ  0150Ch
+GL_OR_INVERTED                     equ  0150Dh
+GL_NAND                            equ  0150Eh
+GL_SET                             equ  0150Fh
+GL_EMISSION                        equ  01600h
+GL_SHININESS                       equ  01601h
+GL_AMBIENT_AND_DIFFUSE             equ  01602h
+GL_COLOR_INDEXES                   equ  01603h
+GL_MODELVIEW                       equ  01700h
+GL_PROJECTION                      equ  01701h
+GL_TEXTURE                         equ  01702h
+GL_COLOR                           equ  01800h
+GL_DEPTH                           equ  01801h
+GL_STENCIL                         equ  01802h
+GL_COLOR_INDEX                     equ  01900h
+GL_STENCIL_INDEX                   equ  01901h
+GL_DEPTH_COMPONENT                 equ  01902h
+GL_RED                             equ  01903h
+GL_GREEN                           equ  01904h
+GL_BLUE                            equ  01905h
+GL_ALPHA                           equ  01906h
+GL_RGB                             equ  01907h
+GL_RGBA                            equ  01908h
+GL_LUMINANCE                       equ  01909h
+GL_LUMINANCE_ALPHA                 equ  0190Ah
+GL_BITMAP                          equ  01A00h
+GL_POINT                           equ  01B00h
+GL_LINE                            equ  01B01h
+GL_FILL                            equ  01B02h
+GL_RENDER                          equ  01C00h
+GL_FEEDBACK                        equ  01C01h
+GL_SELECT                          equ  01C02h
+GL_FLAT                            equ  01D00h
+GL_SMOOTH                          equ  01D01h
+GL_KEEP                            equ  01E00h
+GL_REPLACE                         equ  01E01h
+GL_INCR                            equ  01E02h
+GL_DECR                            equ  01E03h
+GL_VENDOR                          equ  01F00h
+GL_RENDERER                        equ  01F01h
+GL_VERSION                         equ  01F02h
+GL_EXTENSIONS                      equ  01F03h
+GL_S                               equ  02000h
+GL_T                               equ  02001h
+GL_R                               equ  02002h
+GL_Q                               equ  02003h
+GL_MODULATE                        equ  02100h
+GL_DECAL                           equ  02101h
+GL_TEXTURE_ENV_MODE                equ  02200h
+GL_TEXTURE_ENV_COLOR               equ  02201h
+GL_TEXTURE_ENV                     equ  02300h
+GL_EYE_LINEAR                      equ  02400h
+GL_OBJECT_LINEAR                   equ  02401h
+GL_SPHERE_MAP                      equ  02402h
+GL_TEXTURE_GEN_MODE                equ  02500h
+GL_OBJECT_PLANE                    equ  02501h
+GL_EYE_PLANE                       equ  02502h
+GL_NEAREST                         equ  02600h
+GL_LINEAR                          equ  02601h
+GL_NEAREST_MIPMAP_NEAREST          equ  02700h
+GL_LINEAR_MIPMAP_NEAREST           equ  02701h
+GL_NEAREST_MIPMAP_LINEAR           equ  02702h
+GL_LINEAR_MIPMAP_LINEAR            equ  02703h
+GL_TEXTURE_MAG_FILTER              equ  02800h
+GL_TEXTURE_MIN_FILTER              equ  02801h
+GL_TEXTURE_WRAP_S                  equ  02802h
+GL_TEXTURE_WRAP_T                  equ  02803h
+GL_CLAMP                           equ  02900h
+GL_REPEAT                          equ  02901h
+GL_CLIENT_PIXEL_STORE_BIT          equ  000000001h
+GL_CLIENT_VERTEX_ARRAY_BIT         equ  000000002h
+GL_CLIENT_ALL_ATTRIB_BITS          equ  0ffffffffh
+GL_POLYGON_OFFSET_FACTOR           equ  08038h
+GL_POLYGON_OFFSET_UNITS            equ  02A00h
+GL_POLYGON_OFFSET_POINT            equ  02A01h
+GL_POLYGON_OFFSET_LINE             equ  02A02h
+GL_POLYGON_OFFSET_FILL             equ  08037h
+GL_ALPHA4                          equ  0803Bh
+GL_ALPHA8                          equ  0803Ch
+GL_ALPHA12                         equ  0803Dh
+GL_ALPHA16                         equ  0803Eh
+GL_LUMINANCE4                      equ  0803Fh
+GL_LUMINANCE8                      equ  08040h
+GL_LUMINANCE12                     equ  08041h
+GL_LUMINANCE16                     equ  08042h
+GL_LUMINANCE4_ALPHA4               equ  08043h
+GL_LUMINANCE6_ALPHA2               equ  08044h
+GL_LUMINANCE8_ALPHA8               equ  08045h
+GL_LUMINANCE12_ALPHA4              equ  08046h
+GL_LUMINANCE12_ALPHA12             equ  08047h
+GL_LUMINANCE16_ALPHA16             equ  08048h
+GL_INTENSITY                       equ  08049h
+GL_INTENSITY4                      equ  0804Ah
+GL_INTENSITY8                      equ  0804Bh
+GL_INTENSITY12                     equ  0804Ch
+GL_INTENSITY16                     equ  0804Dh
+GL_R3_G3_B2                        equ  02A10h
+GL_RGB4                            equ  0804Fh
+GL_RGB5                            equ  08050h
+GL_RGB8                            equ  08051h
+GL_RGB10                           equ  08052h
+GL_RGB12                           equ  08053h
+GL_RGB16                           equ  08054h
+GL_RGBA2                           equ  08055h
+GL_RGBA4                           equ  08056h
+GL_RGB5_A1                         equ  08057h
+GL_RGBA8                           equ  08058h
+GL_RGB10_A2                        equ  08059h
+GL_RGBA12                          equ  0805Ah
+GL_RGBA16                          equ  0805Bh
+GL_TEXTURE_RED_SIZE                equ  0805Ch
+GL_TEXTURE_GREEN_SIZE              equ  0805Dh
+GL_TEXTURE_BLUE_SIZE               equ  0805Eh
+GL_TEXTURE_ALPHA_SIZE              equ  0805Fh
+GL_TEXTURE_LUMINANCE_SIZE          equ  08060h
+GL_TEXTURE_INTENSITY_SIZE          equ  08061h
+GL_PROXY_TEXTURE_1D                equ  08063h
+GL_PROXY_TEXTURE_2D                equ  08064h
+GL_TEXTURE_PRIORITY                equ  08066h
+GL_TEXTURE_RESIDENT                equ  08067h
+GL_TEXTURE_BINDING_1D              equ  08068h
+GL_TEXTURE_BINDING_2D              equ  08069h
+GL_VERTEX_ARRAY                    equ  08074h
+GL_NORMAL_ARRAY                    equ  08075h
+GL_COLOR_ARRAY                     equ  08076h
+GL_INDEX_ARRAY                     equ  08077h
+GL_TEXTURE_COORD_ARRAY             equ  08078h
+GL_EDGE_FLAG_ARRAY                 equ  08079h
+GL_VERTEX_ARRAY_SIZE               equ  0807Ah
+GL_VERTEX_ARRAY_TYPE               equ  0807Bh
+GL_VERTEX_ARRAY_STRIDE             equ  0807Ch
+GL_NORMAL_ARRAY_TYPE               equ  0807Eh
+GL_NORMAL_ARRAY_STRIDE             equ  0807Fh
+GL_COLOR_ARRAY_SIZE                equ  08081h
+GL_COLOR_ARRAY_TYPE                equ  08082h
+GL_COLOR_ARRAY_STRIDE              equ  08083h
+GL_INDEX_ARRAY_TYPE                equ  08085h
+GL_INDEX_ARRAY_STRIDE              equ  08086h
+GL_TEXTURE_COORD_ARRAY_SIZE        equ  08088h
+GL_TEXTURE_COORD_ARRAY_TYPE        equ  08089h
+GL_TEXTURE_COORD_ARRAY_STRIDE      equ  0808Ah
+GL_EDGE_FLAG_ARRAY_STRIDE          equ  0808Ch
+GL_VERTEX_ARRAY_POINTER            equ  0808Eh
+GL_NORMAL_ARRAY_POINTER            equ  0808Fh
+GL_COLOR_ARRAY_POINTER             equ  08090h
+GL_INDEX_ARRAY_POINTER             equ  08091h
+GL_TEXTURE_COORD_ARRAY_POINTER     equ  08092h
+GL_EDGE_FLAG_ARRAY_POINTER         equ  08093h
+GL_V2F                             equ  02A20h
+GL_V3F                             equ  02A21h
+GL_C4UB_V2F                        equ  02A22h
+GL_C4UB_V3F                        equ  02A23h
+GL_C3F_V3F                         equ  02A24h
+GL_N3F_V3F                         equ  02A25h
+GL_C4F_N3F_V3F                     equ  02A26h
+GL_T2F_V3F                         equ  02A27h
+GL_T4F_V4F                         equ  02A28h
+GL_T2F_C4UB_V3F                    equ  02A29h
+GL_T2F_C3F_V3F                     equ  02A2Ah
+GL_T2F_N3F_V3F                     equ  02A2Bh
+GL_T2F_C4F_N3F_V3F                 equ  02A2Ch
+GL_T4F_C4F_N3F_V4F                 equ  02A2Dh
+GL_EXT_vertex_array                equ  1
+GL_EXT_bgra                        equ  1
+GL_EXT_paletted_texture            equ  1
+GL_WIN_swap_hint                   equ  1
+GL_WIN_draw_range_elements         equ  1
+GL_VERTEX_ARRAY_EXT                equ  08074h
+GL_NORMAL_ARRAY_EXT                equ  08075h
+GL_COLOR_ARRAY_EXT                 equ  08076h
+GL_INDEX_ARRAY_EXT                 equ  08077h
+GL_TEXTURE_COORD_ARRAY_EXT         equ  08078h
+GL_EDGE_FLAG_ARRAY_EXT             equ  08079h
+GL_VERTEX_ARRAY_SIZE_EXT           equ  0807Ah
+GL_VERTEX_ARRAY_TYPE_EXT           equ  0807Bh
+GL_VERTEX_ARRAY_STRIDE_EXT         equ  0807Ch
+GL_VERTEX_ARRAY_COUNT_EXT          equ  0807Dh
+GL_NORMAL_ARRAY_TYPE_EXT           equ  0807Eh
+GL_NORMAL_ARRAY_STRIDE_EXT         equ  0807Fh
+GL_NORMAL_ARRAY_COUNT_EXT          equ  08080h
+GL_COLOR_ARRAY_SIZE_EXT            equ  08081h
+GL_COLOR_ARRAY_TYPE_EXT            equ  08082h
+GL_COLOR_ARRAY_STRIDE_EXT          equ  08083h
+GL_COLOR_ARRAY_COUNT_EXT           equ  08084h
+GL_INDEX_ARRAY_TYPE_EXT            equ  08085h
+GL_INDEX_ARRAY_STRIDE_EXT          equ  08086h
+GL_INDEX_ARRAY_COUNT_EXT           equ  08087h
+GL_TEXTURE_COORD_ARRAY_SIZE_EXT    equ  08088h
+GL_TEXTURE_COORD_ARRAY_TYPE_EXT    equ  08089h
+GL_TEXTURE_COORD_ARRAY_STRIDE_EXT  equ  0808Ah
+GL_TEXTURE_COORD_ARRAY_COUNT_EXT   equ  0808Bh
+GL_EDGE_FLAG_ARRAY_STRIDE_EXT      equ  0808Ch
+GL_EDGE_FLAG_ARRAY_COUNT_EXT       equ  0808Dh
+GL_VERTEX_ARRAY_POINTER_EXT        equ  0808Eh
+GL_NORMAL_ARRAY_POINTER_EXT        equ  0808Fh
+GL_COLOR_ARRAY_POINTER_EXT         equ  08090h
+GL_INDEX_ARRAY_POINTER_EXT         equ  08091h
+GL_TEXTURE_COORD_ARRAY_POINTER_EXT equ  08092h
+GL_EDGE_FLAG_ARRAY_POINTER_EXT     equ  08093h
+GL_DOUBLE_EXT                      equ  GL_DOUBLE
+GL_BGR_EXT                         equ  080E0h
+GL_BGRA_EXT                        equ  080E1h
+GL_COLOR_TABLE_FORMAT_EXT          equ  080D8h
+GL_COLOR_TABLE_WIDTH_EXT           equ  080D9h
+GL_COLOR_TABLE_RED_SIZE_EXT        equ  080DAh
+GL_COLOR_TABLE_GREEN_SIZE_EXT      equ  080DBh
+GL_COLOR_TABLE_BLUE_SIZE_EXT       equ  080DCh
+GL_COLOR_TABLE_ALPHA_SIZE_EXT      equ  080DDh
+GL_COLOR_TABLE_LUMINANCE_SIZE_EXT  equ  080DEh
+GL_COLOR_TABLE_INTENSITY_SIZE_EXT  equ  080DFh
+GL_COLOR_INDEX1_EXT                equ  080E2h
+GL_COLOR_INDEX2_EXT                equ  080E3h
+GL_COLOR_INDEX4_EXT                equ  080E4h
+GL_COLOR_INDEX8_EXT                equ  080E5h
+GL_COLOR_INDEX12_EXT               equ  080E6h
+GL_COLOR_INDEX16_EXT               equ  080E7h
+GL_MAX_ELEMENTS_VERTICES_WIN       equ  080E8h
+GL_MAX_ELEMENTS_INDICES_WIN        equ  080E9h
+GL_PHONG_WIN                       equ  080EAh
+GL_PHONG_HINT_WIN                  equ  080EBh
+GL_FOG_SPECULAR_TEXTURE_WIN        equ  080ECh
+GL_LOGIC_OP                        equ  GL_INDEX_LOGIC_OP
+GL_TEXTURE_COMPONENTS              equ  GL_TEXTURE_INTERNAL_FORMAT
+
+GLU_VERSION_1_1                 equ  1
+GLU_VERSION_1_2                 equ  1
+GLU_INVALID_ENUM                equ  100900
+GLU_INVALID_VALUE               equ  100901
+GLU_OUT_OF_MEMORY               equ  100902
+GLU_INCOMPATIBLE_GL_VERSION     equ  100903
+GLU_VERSION                     equ  100800
+GLU_EXTENSIONS                  equ  100801
+GLU_TRUE                        equ  GL_TRUE
+GLU_FALSE                       equ  GL_FALSE
+GLU_SMOOTH                      equ  100000
+GLU_FLAT                        equ  100001
+GLU_NONE                        equ  100002
+GLU_POINT                       equ  100010
+GLU_LINE                        equ  100011
+GLU_FILL                        equ  100012
+GLU_SILHOUETTE                  equ  100013
+GLU_OUTSIDE                     equ  100020
+GLU_INSIDE                      equ  100021
+GLU_TESS_MAX_COORD              equ  1.0e150
+GLU_TESS_WINDING_RULE           equ  100140
+GLU_TESS_BOUNDARY_ONLY          equ  100141
+GLU_TESS_TOLERANCE              equ  100142
+GLU_TESS_WINDING_ODD            equ  100130
+GLU_TESS_WINDING_NONZERO        equ  100131
+GLU_TESS_WINDING_POSITIVE       equ  100132
+GLU_TESS_WINDING_NEGATIVE       equ  100133
+GLU_TESS_WINDING_ABS_GEQ_TWO    equ  100134
+GLU_TESS_BEGIN                  equ  100100
+GLU_TESS_VERTEX                 equ  100101
+GLU_TESS_END                    equ  100102
+GLU_TESS_ERROR                  equ  100103
+GLU_TESS_EDGE_FLAG              equ  100104
+GLU_TESS_COMBINE                equ  100105
+GLU_TESS_BEGIN_DATA             equ  100106
+GLU_TESS_VERTEX_DATA            equ  100107
+GLU_TESS_END_DATA               equ  100108
+GLU_TESS_ERROR_DATA             equ  100109
+GLU_TESS_EDGE_FLAG_DATA         equ  100110
+GLU_TESS_COMBINE_DATA           equ  100111
+GLU_TESS_ERROR1                 equ  100151
+GLU_TESS_ERROR2                 equ  100152
+GLU_TESS_ERROR3                 equ  100153
+GLU_TESS_ERROR4                 equ  100154
+GLU_TESS_ERROR5                 equ  100155
+GLU_TESS_ERROR6                 equ  100156
+GLU_TESS_ERROR7                 equ  100157
+GLU_TESS_ERROR8                 equ  100158
+GLU_TESS_MISSING_BEGIN_POLYGON  equ  GLU_TESS_ERROR1
+GLU_TESS_MISSING_BEGIN_CONTOUR  equ  GLU_TESS_ERROR2
+GLU_TESS_MISSING_END_POLYGON    equ  GLU_TESS_ERROR3
+GLU_TESS_MISSING_END_CONTOUR    equ  GLU_TESS_ERROR4
+GLU_TESS_COORD_TOO_LARGE        equ  GLU_TESS_ERROR5
+GLU_TESS_NEED_COMBINE_CALLBACK  equ  GLU_TESS_ERROR6
+GLU_AUTO_LOAD_MATRIX            equ  100200
+GLU_CULLING                     equ  100201
+GLU_SAMPLING_TOLERANCE          equ  100203
+GLU_DISPLAY_MODE                equ  100204
+GLU_PARAMETRIC_TOLERANCE        equ  100202
+GLU_SAMPLING_METHOD             equ  100205
+GLU_U_STEP                      equ  100206
+GLU_V_STEP                      equ  100207
+GLU_PATH_LENGTH                 equ  100215
+GLU_PARAMETRIC_ERROR            equ  100216
+GLU_DOMAIN_DISTANCE             equ  100217
+GLU_MAP1_TRIM_2                 equ  100210
+GLU_MAP1_TRIM_3                 equ  100211
+GLU_OUTLINE_POLYGON             equ  100240
+GLU_OUTLINE_PATCH               equ  100241
+GLU_NURBS_ERROR1                equ  100251
+GLU_NURBS_ERROR2                equ  100252
+GLU_NURBS_ERROR3                equ  100253
+GLU_NURBS_ERROR4                equ  100254
+GLU_NURBS_ERROR5                equ  100255
+GLU_NURBS_ERROR6                equ  100256
+GLU_NURBS_ERROR7                equ  100257
+GLU_NURBS_ERROR8                equ  100258
+GLU_NURBS_ERROR9                equ  100259
+GLU_NURBS_ERROR10               equ  100260
+GLU_NURBS_ERROR11               equ  100261
+GLU_NURBS_ERROR12               equ  100262
+GLU_NURBS_ERROR13               equ  100263
+GLU_NURBS_ERROR14               equ  100264
+GLU_NURBS_ERROR15               equ  100265
+GLU_NURBS_ERROR16               equ  100266
+GLU_NURBS_ERROR17               equ  100267
+GLU_NURBS_ERROR18               equ  100268
+GLU_NURBS_ERROR19               equ  100269
+GLU_NURBS_ERROR20               equ  100270
+GLU_NURBS_ERROR21               equ  100271
+GLU_NURBS_ERROR22               equ  100272
+GLU_NURBS_ERROR23               equ  100273
+GLU_NURBS_ERROR24               equ  100274
+GLU_NURBS_ERROR25               equ  100275
+GLU_NURBS_ERROR26               equ  100276
+GLU_NURBS_ERROR27               equ  100277
+GLU_NURBS_ERROR28               equ  100278
+GLU_NURBS_ERROR29               equ  100279
+GLU_NURBS_ERROR30               equ  100280
+GLU_NURBS_ERROR31               equ  100281
+GLU_NURBS_ERROR32               equ  100282
+GLU_NURBS_ERROR33               equ  100283
+GLU_NURBS_ERROR34               equ  100284
+GLU_NURBS_ERROR35               equ  100285
+GLU_NURBS_ERROR36               equ  100286
+GLU_NURBS_ERROR37               equ  100287
+GLU_CW                          equ  100120
+GLU_CCW                         equ  100121
+GLU_INTERIOR                    equ  100122
+GLU_EXTERIOR                    equ  100123
+GLU_UNKNOWN                     equ  100124
+GLU_BEGIN                       equ  GLU_TESS_BEGIN
+GLU_VERTEX                      equ  GLU_TESS_VERTEX
+GLU_END                         equ  GLU_TESS_END
+GLU_ERROR                       equ  GLU_TESS_ERROR
+GLU_EDGE_FLAG                   equ  GLU_TESS_EDGE_FLAG
+;-----------------------------------
+
+GL_VERSION_1_1                     equ  1
+GL_ACCUM                           equ  00100h
+GL_LOAD                            equ  00101h
+GL_RETURN                          equ  00102h
+GL_MULT                            equ  00103h
+GL_ADD                             equ  00104h
+GL_NEVER                           equ  00200h
+GL_LESS                            equ  00201h
+GL_EQUAL                           equ  00202h
+GL_LEQUAL                          equ  00203h
+GL_GREATER                         equ  00204h
+GL_NOTEQUAL                        equ  00205h
+GL_GEQUAL                          equ  00206h
+GL_ALWAYS                          equ  00207h
+GL_CURRENT_BIT                     equ  000000001h
+GL_POINT_BIT                       equ  000000002h
+GL_LINE_BIT                        equ  000000004h
+GL_POLYGON_BIT                     equ  000000008h
+GL_POLYGON_STIPPLE_BIT             equ  000000010h
+GL_PIXEL_MODE_BIT                  equ  000000020h
+GL_LIGHTING_BIT                    equ  000000040h
+GL_FOG_BIT                         equ  000000080h
+GL_DEPTH_BUFFER_BIT                equ  000000100h
+GL_ACCUM_BUFFER_BIT                equ  000000200h
+GL_STENCIL_BUFFER_BIT              equ  000000400h
+GL_VIEWPORT_BIT                    equ  000000800h
+GL_TRANSFORM_BIT                   equ  000001000h
+GL_ENABLE_BIT                      equ  000002000h
+GL_COLOR_BUFFER_BIT                equ  000004000h
+GL_HINT_BIT                        equ  000008000h
+GL_EVAL_BIT                        equ  000010000h
+GL_LIST_BIT                        equ  000020000h
+GL_TEXTURE_BIT                     equ  000040000h
+GL_SCISSOR_BIT                     equ  000080000h
+GL_ALL_ATTRIB_BITS                 equ  0000fffffh
+GL_POINTS                          equ  00000h
+GL_LINES                           equ  00001h
+GL_LINE_LOOP                       equ  00002h
+GL_LINE_STRIP                      equ  00003h
+GL_TRIANGLES                       equ  00004h
+GL_TRIANGLE_STRIP                  equ  00005h
+GL_TRIANGLE_FAN                    equ  00006h
+GL_QUADS                           equ  00007h
+GL_QUAD_STRIP                      equ  00008h
+GL_POLYGON                         equ  00009h
+GL_ZERO                            equ  0
+GL_ONE                             equ  1
+GL_SRC_COLOR                       equ  00300h
+GL_ONE_MINUS_SRC_COLOR             equ  00301h
+GL_SRC_ALPHA                       equ  00302h
+GL_ONE_MINUS_SRC_ALPHA             equ  00303h
+GL_DST_ALPHA                       equ  00304h
+GL_ONE_MINUS_DST_ALPHA             equ  00305h
+GL_DST_COLOR                       equ  00306h
+GL_ONE_MINUS_DST_COLOR             equ  00307h
+GL_SRC_ALPHA_SATURATE              equ  00308h
+GL_TRUE                            equ  1
+GL_FALSE                           equ  0
+GL_CLIP_PLANE0                     equ  03000h
+GL_CLIP_PLANE1                     equ  03001h
+GL_CLIP_PLANE2                     equ  03002h
+GL_CLIP_PLANE3                     equ  03003h
+GL_CLIP_PLANE4                     equ  03004h
+GL_CLIP_PLANE5                     equ  03005h
+GL_BYTE                            equ  01400h
+GL_UNSIGNED_BYTE                   equ  01401h
+GL_SHORT                           equ  01402h
+GL_UNSIGNED_SHORT                  equ  01403h
+GL_INT                             equ  01404h
+GL_UNSIGNED_INT                    equ  01405h
+GL_FLOAT                           equ  01406h
+GL_2_BYTES                         equ  01407h
+GL_3_BYTES                         equ  01408h
+GL_4_BYTES                         equ  01409h
+GL_DOUBLE                          equ  0140Ah
+GL_NONE                            equ  0
+GL_FRONT_LEFT                      equ  00400h
+GL_FRONT_RIGHT                     equ  00401h
+GL_BACK_LEFT                       equ  00402h
+GL_BACK_RIGHT                      equ  00403h
+GL_FRONT                           equ  00404h
+GL_BACK                            equ  00405h
+GL_LEFT                            equ  00406h
+GL_RIGHT                           equ  00407h
+GL_FRONT_AND_BACK                  equ  00408h
+GL_AUX0                            equ  00409h
+GL_AUX1                            equ  0040Ah
+GL_AUX2                            equ  0040Bh
+GL_AUX3                            equ  0040Ch
+GL_NO_ERROR                        equ  0
+GL_INVALID_ENUM                    equ  00500h
+GL_INVALID_VALUE                   equ  00501h
+GL_INVALID_OPERATION               equ  00502h
+GL_STACK_OVERFLOW                  equ  00503h
+GL_STACK_UNDERFLOW                 equ  00504h
+GL_OUT_OF_MEMORY                   equ  00505h
+GL_2D                              equ  00600h
+GL_3D                              equ  00601h
+GL_3D_COLOR                        equ  00602h
+GL_3D_COLOR_TEXTURE                equ  00603h
+GL_4D_COLOR_TEXTURE                equ  00604h
+GL_PASS_THROUGH_TOKEN              equ  00700h
+GL_POINT_TOKEN                     equ  00701h
+GL_LINE_TOKEN                      equ  00702h
+GL_POLYGON_TOKEN                   equ  00703h
+GL_BITMAP_TOKEN                    equ  00704h
+GL_DRAW_PIXEL_TOKEN                equ  00705h
+GL_COPY_PIXEL_TOKEN                equ  00706h
+GL_LINE_RESET_TOKEN                equ  00707h
+GL_EXP                             equ  00800h
+GL_EXP2                            equ  00801h
+GL_CW                              equ  00900h
+GL_CCW                             equ  00901h
+GL_COEFF                           equ  00A00h
+GL_ORDER                           equ  00A01h
+GL_DOMAIN                          equ  00A02h
+GL_CURRENT_COLOR                   equ  00B00h
+GL_CURRENT_INDEX                   equ  00B01h
+GL_CURRENT_NORMAL                  equ  00B02h
+GL_CURRENT_TEXTURE_COORDS          equ  00B03h
+GL_CURRENT_RASTER_COLOR            equ  00B04h
+GL_CURRENT_RASTER_INDEX            equ  00B05h
+GL_CURRENT_RASTER_TEXTURE_COORDS   equ  00B06h
+GL_CURRENT_RASTER_POSITION         equ  00B07h
+GL_CURRENT_RASTER_POSITION_VALID   equ  00B08h
+GL_CURRENT_RASTER_DISTANCE         equ  00B09h
+GL_POINT_SMOOTH                    equ  00B10h
+GL_POINT_SIZE                      equ  00B11h
+GL_POINT_SIZE_RANGE                equ  00B12h
+GL_POINT_SIZE_GRANULARITY          equ  00B13h
+GL_LINE_SMOOTH                     equ  00B20h
+GL_LINE_WIDTH                      equ  00B21h
+GL_LINE_WIDTH_RANGE                equ  00B22h
+GL_LINE_WIDTH_GRANULARITY          equ  00B23h
+GL_LINE_STIPPLE                    equ  00B24h
+GL_LINE_STIPPLE_PATTERN            equ  00B25h
+GL_LINE_STIPPLE_REPEAT             equ  00B26h
+GL_LIST_MODE                       equ  00B30h
+GL_MAX_LIST_NESTING                equ  00B31h
+GL_LIST_BASE                       equ  00B32h
+GL_LIST_INDEX                      equ  00B33h
+GL_POLYGON_MODE                    equ  00B40h
+GL_POLYGON_SMOOTH                  equ  00B41h
+GL_POLYGON_STIPPLE                 equ  00B42h
+GL_EDGE_FLAG                       equ  00B43h
+GL_CULL_FACE                       equ  00B44h
+GL_CULL_FACE_MODE                  equ  00B45h
+GL_FRONT_FACE                      equ  00B46h
+GL_LIGHTING                        equ  00B50h
+GL_LIGHT_MODEL_LOCAL_VIEWER        equ  00B51h
+GL_LIGHT_MODEL_TWO_SIDE            equ  00B52h
+GL_LIGHT_MODEL_AMBIENT             equ  00B53h
+GL_SHADE_MODEL                     equ  00B54h
+GL_COLOR_MATERIAL_FACE             equ  00B55h
+GL_COLOR_MATERIAL_PARAMETER        equ  00B56h
+GL_COLOR_MATERIAL                  equ  00B57h
+GL_FOG                             equ  00B60h
+GL_FOG_INDEX                       equ  00B61h
+GL_FOG_DENSITY                     equ  00B62h
+GL_FOG_START                       equ  00B63h
+GL_FOG_END                         equ  00B64h
+GL_FOG_MODE                        equ  00B65h
+GL_FOG_COLOR                       equ  00B66h
+GL_DEPTH_RANGE                     equ  00B70h
+GL_DEPTH_TEST                      equ  00B71h
+GL_DEPTH_WRITEMASK                 equ  00B72h
+GL_DEPTH_CLEAR_VALUE               equ  00B73h
+GL_DEPTH_FUNC                      equ  00B74h
+GL_ACCUM_CLEAR_VALUE               equ  00B80h
+GL_STENCIL_TEST                    equ  00B90h
+GL_STENCIL_CLEAR_VALUE             equ  00B91h
+GL_STENCIL_FUNC                    equ  00B92h
+GL_STENCIL_VALUE_MASK              equ  00B93h
+GL_STENCIL_FAIL                    equ  00B94h
+GL_STENCIL_PASS_DEPTH_FAIL         equ  00B95h
+GL_STENCIL_PASS_DEPTH_PASS         equ  00B96h
+GL_STENCIL_REF                     equ  00B97h
+GL_STENCIL_WRITEMASK               equ  00B98h
+GL_MATRIX_MODE                     equ  00BA0h
+GL_NORMALIZE                       equ  00BA1h
+GL_VIEWPORT                        equ  00BA2h
+GL_MODELVIEW_STACK_DEPTH           equ  00BA3h
+GL_PROJECTION_STACK_DEPTH          equ  00BA4h
+GL_TEXTURE_STACK_DEPTH             equ  00BA5h
+GL_MODELVIEW_MATRIX                equ  00BA6h
+GL_PROJECTION_MATRIX               equ  00BA7h
+GL_TEXTURE_MATRIX                  equ  00BA8h
+GL_ATTRIB_STACK_DEPTH              equ  00BB0h
+GL_CLIENT_ATTRIB_STACK_DEPTH       equ  00BB1h
+GL_ALPHA_TEST                      equ  00BC0h
+GL_ALPHA_TEST_FUNC                 equ  00BC1h
+GL_ALPHA_TEST_REF                  equ  00BC2h
+GL_DITHER                          equ  00BD0h
+GL_BLEND_DST                       equ  00BE0h
+GL_BLEND_SRC                       equ  00BE1h
+GL_BLEND                           equ  00BE2h
+GL_LOGIC_OP_MODE                   equ  00BF0h
+GL_INDEX_LOGIC_OP                  equ  00BF1h
+GL_COLOR_LOGIC_OP                  equ  00BF2h
+GL_AUX_BUFFERS                     equ  00C00h
+GL_DRAW_BUFFER                     equ  00C01h
+GL_READ_BUFFER                     equ  00C02h
+GL_SCISSOR_BOX                     equ  00C10h
+GL_SCISSOR_TEST                    equ  00C11h
+GL_INDEX_CLEAR_VALUE               equ  00C20h
+GL_INDEX_WRITEMASK                 equ  00C21h
+GL_COLOR_CLEAR_VALUE               equ  00C22h
+GL_COLOR_WRITEMASK                 equ  00C23h
+GL_INDEX_MODE                      equ  00C30h
+GL_RGBA_MODE                       equ  00C31h
+GL_DOUBLEBUFFER                    equ  00C32h
+GL_STEREO                          equ  00C33h
+GL_RENDER_MODE                     equ  00C40h
+GL_PERSPECTIVE_CORRECTION_HINT     equ  00C50h
+GL_POINT_SMOOTH_HINT               equ  00C51h
+GL_LINE_SMOOTH_HINT                equ  00C52h
+GL_POLYGON_SMOOTH_HINT             equ  00C53h
+GL_FOG_HINT                        equ  00C54h
+GL_TEXTURE_GEN_S                   equ  00C60h
+GL_TEXTURE_GEN_T                   equ  00C61h
+GL_TEXTURE_GEN_R                   equ  00C62h
+GL_TEXTURE_GEN_Q                   equ  00C63h
+GL_PIXEL_MAP_I_TO_I                equ  00C70h
+GL_PIXEL_MAP_S_TO_S                equ  00C71h
+GL_PIXEL_MAP_I_TO_R                equ  00C72h
+GL_PIXEL_MAP_I_TO_G                equ  00C73h
+GL_PIXEL_MAP_I_TO_B                equ  00C74h
+GL_PIXEL_MAP_I_TO_A                equ  00C75h
+GL_PIXEL_MAP_R_TO_R                equ  00C76h
+GL_PIXEL_MAP_G_TO_G                equ  00C77h
+GL_PIXEL_MAP_B_TO_B                equ  00C78h
+GL_PIXEL_MAP_A_TO_A                equ  00C79h
+GL_PIXEL_MAP_I_TO_I_SIZE           equ  00CB0h
+GL_PIXEL_MAP_S_TO_S_SIZE           equ  00CB1h
+GL_PIXEL_MAP_I_TO_R_SIZE           equ  00CB2h
+GL_PIXEL_MAP_I_TO_G_SIZE           equ  00CB3h
+GL_PIXEL_MAP_I_TO_B_SIZE           equ  00CB4h
+GL_PIXEL_MAP_I_TO_A_SIZE           equ  00CB5h
+GL_PIXEL_MAP_R_TO_R_SIZE           equ  00CB6h
+GL_PIXEL_MAP_G_TO_G_SIZE           equ  00CB7h
+GL_PIXEL_MAP_B_TO_B_SIZE           equ  00CB8h
+GL_PIXEL_MAP_A_TO_A_SIZE           equ  00CB9h
+GL_UNPACK_SWAP_BYTES               equ  00CF0h
+GL_UNPACK_LSB_FIRST                equ  00CF1h
+GL_UNPACK_ROW_LENGTH               equ  00CF2h
+GL_UNPACK_SKIP_ROWS                equ  00CF3h
+GL_UNPACK_SKIP_PIXELS              equ  00CF4h
+GL_UNPACK_ALIGNMENT                equ  00CF5h
+GL_PACK_SWAP_BYTES                 equ  00D00h
+GL_PACK_LSB_FIRST                  equ  00D01h
+GL_PACK_ROW_LENGTH                 equ  00D02h
+GL_PACK_SKIP_ROWS                  equ  00D03h
+GL_PACK_SKIP_PIXELS                equ  00D04h
+GL_PACK_ALIGNMENT                  equ  00D05h
+GL_MAP_COLOR                       equ  00D10h
+GL_MAP_STENCIL                     equ  00D11h
+GL_INDEX_SHIFT                     equ  00D12h
+GL_INDEX_OFFSET                    equ  00D13h
+GL_RED_SCALE                       equ  00D14h
+GL_RED_BIAS                        equ  00D15h
+GL_ZOOM_X                          equ  00D16h
+GL_ZOOM_Y                          equ  00D17h
+GL_GREEN_SCALE                     equ  00D18h
+GL_GREEN_BIAS                      equ  00D19h
+GL_BLUE_SCALE                      equ  00D1Ah
+GL_BLUE_BIAS                       equ  00D1Bh
+GL_ALPHA_SCALE                     equ  00D1Ch
+GL_ALPHA_BIAS                      equ  00D1Dh
+GL_DEPTH_SCALE                     equ  00D1Eh
+GL_DEPTH_BIAS                      equ  00D1Fh
+GL_MAX_EVAL_ORDER                  equ  00D30h
+GL_MAX_LIGHTS                      equ  00D31h
+GL_MAX_CLIP_PLANES                 equ  00D32h
+GL_MAX_TEXTURE_SIZE                equ  00D33h
+GL_MAX_PIXEL_MAP_TABLE             equ  00D34h
+GL_MAX_ATTRIB_STACK_DEPTH          equ  00D35h
+GL_MAX_MODELVIEW_STACK_DEPTH       equ  00D36h
+GL_MAX_NAME_STACK_DEPTH            equ  00D37h
+GL_MAX_PROJECTION_STACK_DEPTH      equ  00D38h
+GL_MAX_TEXTURE_STACK_DEPTH         equ  00D39h
+GL_MAX_VIEWPORT_DIMS               equ  00D3Ah
+GL_MAX_CLIENT_ATTRIB_STACK_DEPTH   equ  00D3Bh
+GL_SUBPIXEL_BITS                   equ  00D50h
+GL_INDEX_BITS                      equ  00D51h
+GL_RED_BITS                        equ  00D52h
+GL_GREEN_BITS                      equ  00D53h
+GL_BLUE_BITS                       equ  00D54h
+GL_ALPHA_BITS                      equ  00D55h
+GL_DEPTH_BITS                      equ  00D56h
+GL_STENCIL_BITS                    equ  00D57h
+GL_ACCUM_RED_BITS                  equ  00D58h
+GL_ACCUM_GREEN_BITS                equ  00D59h
+GL_ACCUM_BLUE_BITS                 equ  00D5Ah
+GL_ACCUM_ALPHA_BITS                equ  00D5Bh
+GL_NAME_STACK_DEPTH                equ  00D70h
+GL_AUTO_NORMAL                     equ  00D80h
+GL_MAP1_COLOR_4                    equ  00D90h
+GL_MAP1_INDEX                      equ  00D91h
+GL_MAP1_NORMAL                     equ  00D92h
+GL_MAP1_TEXTURE_COORD_1            equ  00D93h
+GL_MAP1_TEXTURE_COORD_2            equ  00D94h
+GL_MAP1_TEXTURE_COORD_3            equ  00D95h
+GL_MAP1_TEXTURE_COORD_4            equ  00D96h
+GL_MAP1_VERTEX_3                   equ  00D97h
+GL_MAP1_VERTEX_4                   equ  00D98h
+GL_MAP2_COLOR_4                    equ  00DB0h
+GL_MAP2_INDEX                      equ  00DB1h
+GL_MAP2_NORMAL                     equ  00DB2h
+GL_MAP2_TEXTURE_COORD_1            equ  00DB3h
+GL_MAP2_TEXTURE_COORD_2            equ  00DB4h
+GL_MAP2_TEXTURE_COORD_3            equ  00DB5h
+GL_MAP2_TEXTURE_COORD_4            equ  00DB6h
+GL_MAP2_VERTEX_3                   equ  00DB7h
+GL_MAP2_VERTEX_4                   equ  00DB8h
+GL_MAP1_GRID_DOMAIN                equ  00DD0h
+GL_MAP1_GRID_SEGMENTS              equ  00DD1h
+GL_MAP2_GRID_DOMAIN                equ  00DD2h
+GL_MAP2_GRID_SEGMENTS              equ  00DD3h
+GL_TEXTURE_1D                      equ  00DE0h
+GL_TEXTURE_2D                      equ  00DE1h
+GL_FEEDBACK_BUFFER_POINTER         equ  00DF0h
+GL_FEEDBACK_BUFFER_SIZE            equ  00DF1h
+GL_FEEDBACK_BUFFER_TYPE            equ  00DF2h
+GL_SELECTION_BUFFER_POINTER        equ  00DF3h
+GL_SELECTION_BUFFER_SIZE           equ  00DF4h
+GL_TEXTURE_WIDTH                   equ  01000h
+GL_TEXTURE_HEIGHT                  equ  01001h
+GL_TEXTURE_INTERNAL_FORMAT         equ  01003h
+GL_TEXTURE_BORDER_COLOR            equ  01004h
+GL_TEXTURE_BORDER                  equ  01005h
+GL_DONT_CARE                       equ  01100h
+GL_FASTEST                         equ  01101h
+GL_NICEST                          equ  01102h
+GL_LIGHT0                          equ  04000h
+GL_LIGHT1                          equ  04001h
+GL_LIGHT2                          equ  04002h
+GL_LIGHT3                          equ  04003h
+GL_LIGHT4                          equ  04004h
+GL_LIGHT5                          equ  04005h
+GL_LIGHT6                          equ  04006h
+GL_LIGHT7                          equ  04007h
+GL_AMBIENT                         equ  01200h
+GL_DIFFUSE                         equ  01201h
+GL_SPECULAR                        equ  01202h
+GL_POSITION                        equ  01203h
+GL_SPOT_DIRECTION                  equ  01204h
+GL_SPOT_EXPONENT                   equ  01205h
+GL_SPOT_CUTOFF                     equ  01206h
+GL_CONSTANT_ATTENUATION            equ  01207h
+GL_LINEAR_ATTENUATION              equ  01208h
+GL_QUADRATIC_ATTENUATION           equ  01209h
+GL_COMPILE                         equ  01300h
+GL_COMPILE_AND_EXECUTE             equ  01301h
+GL_CLEAR                           equ  01500h
+GL_AND                             equ  01501h
+GL_AND_REVERSE                     equ  01502h
+GL_COPY                            equ  01503h
+GL_AND_INVERTED                    equ  01504h
+GL_NOOP                            equ  01505h
+GL_XOR                             equ  01506h
+GL_OR                              equ  01507h
+GL_NOR                             equ  01508h
+GL_EQUIV                           equ  01509h
+GL_INVERT                          equ  0150Ah
+GL_OR_REVERSE                      equ  0150Bh
+GL_COPY_INVERTED                   equ  0150Ch
+GL_OR_INVERTED                     equ  0150Dh
+GL_NAND                            equ  0150Eh
+GL_SET                             equ  0150Fh
+GL_EMISSION                        equ  01600h
+GL_SHININESS                       equ  01601h
+GL_AMBIENT_AND_DIFFUSE             equ  01602h
+GL_COLOR_INDEXES                   equ  01603h
+GL_MODELVIEW                       equ  01700h
+GL_PROJECTION                      equ  01701h
+GL_TEXTURE                         equ  01702h
+GL_COLOR                           equ  01800h
+GL_DEPTH                           equ  01801h
+GL_STENCIL                         equ  01802h
+GL_COLOR_INDEX                     equ  01900h
+GL_STENCIL_INDEX                   equ  01901h
+GL_DEPTH_COMPONENT                 equ  01902h
+GL_RED                             equ  01903h
+GL_GREEN                           equ  01904h
+GL_BLUE                            equ  01905h
+GL_ALPHA                           equ  01906h
+GL_RGB                             equ  01907h
+GL_RGBA                            equ  01908h
+GL_LUMINANCE                       equ  01909h
+GL_LUMINANCE_ALPHA                 equ  0190Ah
+GL_BITMAP                          equ  01A00h
+GL_POINT                           equ  01B00h
+GL_LINE                            equ  01B01h
+GL_FILL                            equ  01B02h
+GL_RENDER                          equ  01C00h
+GL_FEEDBACK                        equ  01C01h
+GL_SELECT                          equ  01C02h
+GL_FLAT                            equ  01D00h
+GL_SMOOTH                          equ  01D01h
+GL_KEEP                            equ  01E00h
+GL_REPLACE                         equ  01E01h
+GL_INCR                            equ  01E02h
+GL_DECR                            equ  01E03h
+GL_VENDOR                          equ  01F00h
+GL_RENDERER                        equ  01F01h
+GL_VERSION                         equ  01F02h
+GL_EXTENSIONS                      equ  01F03h
+GL_S                               equ  02000h
+GL_T                               equ  02001h
+GL_R                               equ  02002h
+GL_Q                               equ  02003h
+GL_MODULATE                        equ  02100h
+GL_DECAL                           equ  02101h
+GL_TEXTURE_ENV_MODE                equ  02200h
+GL_TEXTURE_ENV_COLOR               equ  02201h
+GL_TEXTURE_ENV                     equ  02300h
+GL_EYE_LINEAR                      equ  02400h
+GL_OBJECT_LINEAR                   equ  02401h
+GL_SPHERE_MAP                      equ  02402h
+GL_TEXTURE_GEN_MODE                equ  02500h
+GL_OBJECT_PLANE                    equ  02501h
+GL_EYE_PLANE                       equ  02502h
+GL_NEAREST                         equ  02600h
+GL_LINEAR                          equ  02601h
+GL_NEAREST_MIPMAP_NEAREST          equ  02700h
+GL_LINEAR_MIPMAP_NEAREST           equ  02701h
+GL_NEAREST_MIPMAP_LINEAR           equ  02702h
+GL_LINEAR_MIPMAP_LINEAR            equ  02703h
+GL_TEXTURE_MAG_FILTER              equ  02800h
+GL_TEXTURE_MIN_FILTER              equ  02801h
+GL_TEXTURE_WRAP_S                  equ  02802h
+GL_TEXTURE_WRAP_T                  equ  02803h
+GL_CLAMP                           equ  02900h
+GL_REPEAT                          equ  02901h
+GL_CLIENT_PIXEL_STORE_BIT          equ  000000001h
+GL_CLIENT_VERTEX_ARRAY_BIT         equ  000000002h
+GL_CLIENT_ALL_ATTRIB_BITS          equ  0ffffffffh
+GL_POLYGON_OFFSET_FACTOR           equ  08038h
+GL_POLYGON_OFFSET_UNITS            equ  02A00h
+GL_POLYGON_OFFSET_POINT            equ  02A01h
+GL_POLYGON_OFFSET_LINE             equ  02A02h
+GL_POLYGON_OFFSET_FILL             equ  08037h
+GL_ALPHA4                          equ  0803Bh
+GL_ALPHA8                          equ  0803Ch
+GL_ALPHA12                         equ  0803Dh
+GL_ALPHA16                         equ  0803Eh
+GL_LUMINANCE4                      equ  0803Fh
+GL_LUMINANCE8                      equ  08040h
+GL_LUMINANCE12                     equ  08041h
+GL_LUMINANCE16                     equ  08042h
+GL_LUMINANCE4_ALPHA4               equ  08043h
+GL_LUMINANCE6_ALPHA2               equ  08044h
+GL_LUMINANCE8_ALPHA8               equ  08045h
+GL_LUMINANCE12_ALPHA4              equ  08046h
+GL_LUMINANCE12_ALPHA12             equ  08047h
+GL_LUMINANCE16_ALPHA16             equ  08048h
+GL_INTENSITY                       equ  08049h
+GL_INTENSITY4                      equ  0804Ah
+GL_INTENSITY8                      equ  0804Bh
+GL_INTENSITY12                     equ  0804Ch
+GL_INTENSITY16                     equ  0804Dh
+GL_R3_G3_B2                        equ  02A10h
+GL_RGB4                            equ  0804Fh
+GL_RGB5                            equ  08050h
+GL_RGB8                            equ  08051h
+GL_RGB10                           equ  08052h
+GL_RGB12                           equ  08053h
+GL_RGB16                           equ  08054h
+GL_RGBA2                           equ  08055h
+GL_RGBA4                           equ  08056h
+GL_RGB5_A1                         equ  08057h
+GL_RGBA8                           equ  08058h
+GL_RGB10_A2                        equ  08059h
+GL_RGBA12                          equ  0805Ah
+GL_RGBA16                          equ  0805Bh
+GL_TEXTURE_RED_SIZE                equ  0805Ch
+GL_TEXTURE_GREEN_SIZE              equ  0805Dh
+GL_TEXTURE_BLUE_SIZE               equ  0805Eh
+GL_TEXTURE_ALPHA_SIZE              equ  0805Fh
+GL_TEXTURE_LUMINANCE_SIZE          equ  08060h
+GL_TEXTURE_INTENSITY_SIZE          equ  08061h
+GL_PROXY_TEXTURE_1D                equ  08063h
+GL_PROXY_TEXTURE_2D                equ  08064h
+GL_TEXTURE_PRIORITY                equ  08066h
+GL_TEXTURE_RESIDENT                equ  08067h
+GL_TEXTURE_BINDING_1D              equ  08068h
+GL_TEXTURE_BINDING_2D              equ  08069h
+GL_VERTEX_ARRAY                    equ  08074h
+GL_NORMAL_ARRAY                    equ  08075h
+GL_COLOR_ARRAY                     equ  08076h
+GL_INDEX_ARRAY                     equ  08077h
+GL_TEXTURE_COORD_ARRAY             equ  08078h
+GL_EDGE_FLAG_ARRAY                 equ  08079h
+GL_VERTEX_ARRAY_SIZE               equ  0807Ah
+GL_VERTEX_ARRAY_TYPE               equ  0807Bh
+GL_VERTEX_ARRAY_STRIDE             equ  0807Ch
+GL_NORMAL_ARRAY_TYPE               equ  0807Eh
+GL_NORMAL_ARRAY_STRIDE             equ  0807Fh
+GL_COLOR_ARRAY_SIZE                equ  08081h
+GL_COLOR_ARRAY_TYPE                equ  08082h
+GL_COLOR_ARRAY_STRIDE              equ  08083h
+GL_INDEX_ARRAY_TYPE                equ  08085h
+GL_INDEX_ARRAY_STRIDE              equ  08086h
+GL_TEXTURE_COORD_ARRAY_SIZE        equ  08088h
+GL_TEXTURE_COORD_ARRAY_TYPE        equ  08089h
+GL_TEXTURE_COORD_ARRAY_STRIDE      equ  0808Ah
+GL_EDGE_FLAG_ARRAY_STRIDE          equ  0808Ch
+GL_VERTEX_ARRAY_POINTER            equ  0808Eh
+GL_NORMAL_ARRAY_POINTER            equ  0808Fh
+GL_COLOR_ARRAY_POINTER             equ  08090h
+GL_INDEX_ARRAY_POINTER             equ  08091h
+GL_TEXTURE_COORD_ARRAY_POINTER     equ  08092h
+GL_EDGE_FLAG_ARRAY_POINTER         equ  08093h
+GL_V2F                             equ  02A20h
+GL_V3F                             equ  02A21h
+GL_C4UB_V2F                        equ  02A22h
+GL_C4UB_V3F                        equ  02A23h
+GL_C3F_V3F                         equ  02A24h
+GL_N3F_V3F                         equ  02A25h
+GL_C4F_N3F_V3F                     equ  02A26h
+GL_T2F_V3F                         equ  02A27h
+GL_T4F_V4F                         equ  02A28h
+GL_T2F_C4UB_V3F                    equ  02A29h
+GL_T2F_C3F_V3F                     equ  02A2Ah
+GL_T2F_N3F_V3F                     equ  02A2Bh
+GL_T2F_C4F_N3F_V3F                 equ  02A2Ch
+GL_T4F_C4F_N3F_V4F                 equ  02A2Dh
+GL_EXT_vertex_array                equ  1
+GL_EXT_bgra                        equ  1
+GL_EXT_paletted_texture            equ  1
+GL_WIN_swap_hint                   equ  1
+GL_WIN_draw_range_elements         equ  1
+GL_VERTEX_ARRAY_EXT                equ  08074h
+GL_NORMAL_ARRAY_EXT                equ  08075h
+GL_COLOR_ARRAY_EXT                 equ  08076h
+GL_INDEX_ARRAY_EXT                 equ  08077h
+GL_TEXTURE_COORD_ARRAY_EXT         equ  08078h
+GL_EDGE_FLAG_ARRAY_EXT             equ  08079h
+GL_VERTEX_ARRAY_SIZE_EXT           equ  0807Ah
+GL_VERTEX_ARRAY_TYPE_EXT           equ  0807Bh
+GL_VERTEX_ARRAY_STRIDE_EXT         equ  0807Ch
+GL_VERTEX_ARRAY_COUNT_EXT          equ  0807Dh
+GL_NORMAL_ARRAY_TYPE_EXT           equ  0807Eh
+GL_NORMAL_ARRAY_STRIDE_EXT         equ  0807Fh
+GL_NORMAL_ARRAY_COUNT_EXT          equ  08080h
+GL_COLOR_ARRAY_SIZE_EXT            equ  08081h
+GL_COLOR_ARRAY_TYPE_EXT            equ  08082h
+GL_COLOR_ARRAY_STRIDE_EXT          equ  08083h
+GL_COLOR_ARRAY_COUNT_EXT           equ  08084h
+GL_INDEX_ARRAY_TYPE_EXT            equ  08085h
+GL_INDEX_ARRAY_STRIDE_EXT          equ  08086h
+GL_INDEX_ARRAY_COUNT_EXT           equ  08087h
+GL_TEXTURE_COORD_ARRAY_SIZE_EXT    equ  08088h
+GL_TEXTURE_COORD_ARRAY_TYPE_EXT    equ  08089h
+GL_TEXTURE_COORD_ARRAY_STRIDE_EXT  equ  0808Ah
+GL_TEXTURE_COORD_ARRAY_COUNT_EXT   equ  0808Bh
+GL_EDGE_FLAG_ARRAY_STRIDE_EXT      equ  0808Ch
+GL_EDGE_FLAG_ARRAY_COUNT_EXT       equ  0808Dh
+GL_VERTEX_ARRAY_POINTER_EXT        equ  0808Eh
+GL_NORMAL_ARRAY_POINTER_EXT        equ  0808Fh
+GL_COLOR_ARRAY_POINTER_EXT         equ  08090h
+GL_INDEX_ARRAY_POINTER_EXT         equ  08091h
+GL_TEXTURE_COORD_ARRAY_POINTER_EXT equ  08092h
+GL_EDGE_FLAG_ARRAY_POINTER_EXT     equ  08093h
+GL_DOUBLE_EXT                      equ  GL_DOUBLE
+GL_BGR_EXT                         equ  080E0h
+GL_BGRA_EXT                        equ  080E1h
+GL_COLOR_TABLE_FORMAT_EXT          equ  080D8h
+GL_COLOR_TABLE_WIDTH_EXT           equ  080D9h
+GL_COLOR_TABLE_RED_SIZE_EXT        equ  080DAh
+GL_COLOR_TABLE_GREEN_SIZE_EXT      equ  080DBh
+GL_COLOR_TABLE_BLUE_SIZE_EXT       equ  080DCh
+GL_COLOR_TABLE_ALPHA_SIZE_EXT      equ  080DDh
+GL_COLOR_TABLE_LUMINANCE_SIZE_EXT  equ  080DEh
+GL_COLOR_TABLE_INTENSITY_SIZE_EXT  equ  080DFh
+GL_COLOR_INDEX1_EXT                equ  080E2h
+GL_COLOR_INDEX2_EXT                equ  080E3h
+GL_COLOR_INDEX4_EXT                equ  080E4h
+GL_COLOR_INDEX8_EXT                equ  080E5h
+GL_COLOR_INDEX12_EXT               equ  080E6h
+GL_COLOR_INDEX16_EXT               equ  080E7h
+GL_MAX_ELEMENTS_VERTICES_WIN       equ  080E8h
+GL_MAX_ELEMENTS_INDICES_WIN        equ  080E9h
+GL_PHONG_WIN                       equ  080EAh
+GL_PHONG_HINT_WIN                  equ  080EBh
+GL_FOG_SPECULAR_TEXTURE_WIN        equ  080ECh
+GL_LOGIC_OP                        equ  GL_INDEX_LOGIC_OP
+GL_TEXTURE_COMPONENTS              equ  GL_TEXTURE_INTERNAL_FORMAT
+
+GLU_VERSION_1_1                 equ  1
+GLU_VERSION_1_2                 equ  1
+GLU_INVALID_ENUM                equ  100900
+GLU_INVALID_VALUE               equ  100901
+GLU_OUT_OF_MEMORY               equ  100902
+GLU_INCOMPATIBLE_GL_VERSION     equ  100903
+GLU_VERSION                     equ  100800
+GLU_EXTENSIONS                  equ  100801
+GLU_TRUE                        equ  GL_TRUE
+GLU_FALSE                       equ  GL_FALSE
+GLU_SMOOTH                      equ  100000
+GLU_FLAT                        equ  100001
+GLU_NONE                        equ  100002
+GLU_POINT                       equ  100010
+GLU_LINE                        equ  100011
+GLU_FILL                        equ  100012
+GLU_SILHOUETTE                  equ  100013
+GLU_OUTSIDE                     equ  100020
+GLU_INSIDE                      equ  100021
+GLU_TESS_MAX_COORD              equ  1.0e150
+GLU_TESS_WINDING_RULE           equ  100140
+GLU_TESS_BOUNDARY_ONLY          equ  100141
+GLU_TESS_TOLERANCE              equ  100142
+GLU_TESS_WINDING_ODD            equ  100130
+GLU_TESS_WINDING_NONZERO        equ  100131
+GLU_TESS_WINDING_POSITIVE       equ  100132
+GLU_TESS_WINDING_NEGATIVE       equ  100133
+GLU_TESS_WINDING_ABS_GEQ_TWO    equ  100134
+GLU_TESS_BEGIN                  equ  100100
+GLU_TESS_VERTEX                 equ  100101
+GLU_TESS_END                    equ  100102
+GLU_TESS_ERROR                  equ  100103
+GLU_TESS_EDGE_FLAG              equ  100104
+GLU_TESS_COMBINE                equ  100105
+GLU_TESS_BEGIN_DATA             equ  100106
+GLU_TESS_VERTEX_DATA            equ  100107
+GLU_TESS_END_DATA               equ  100108
+GLU_TESS_ERROR_DATA             equ  100109
+GLU_TESS_EDGE_FLAG_DATA         equ  100110
+GLU_TESS_COMBINE_DATA           equ  100111
+GLU_TESS_ERROR1                 equ  100151
+GLU_TESS_ERROR2                 equ  100152
+GLU_TESS_ERROR3                 equ  100153
+GLU_TESS_ERROR4                 equ  100154
+GLU_TESS_ERROR5                 equ  100155
+GLU_TESS_ERROR6                 equ  100156
+GLU_TESS_ERROR7                 equ  100157
+GLU_TESS_ERROR8                 equ  100158
+GLU_TESS_MISSING_BEGIN_POLYGON  equ  GLU_TESS_ERROR1
+GLU_TESS_MISSING_BEGIN_CONTOUR  equ  GLU_TESS_ERROR2
+GLU_TESS_MISSING_END_POLYGON    equ  GLU_TESS_ERROR3
+GLU_TESS_MISSING_END_CONTOUR    equ  GLU_TESS_ERROR4
+GLU_TESS_COORD_TOO_LARGE        equ  GLU_TESS_ERROR5
+GLU_TESS_NEED_COMBINE_CALLBACK  equ  GLU_TESS_ERROR6
+GLU_AUTO_LOAD_MATRIX            equ  100200
+GLU_CULLING                     equ  100201
+GLU_SAMPLING_TOLERANCE          equ  100203
+GLU_DISPLAY_MODE                equ  100204
+GLU_PARAMETRIC_TOLERANCE        equ  100202
+GLU_SAMPLING_METHOD             equ  100205
+GLU_U_STEP                      equ  100206
+GLU_V_STEP                      equ  100207
+GLU_PATH_LENGTH                 equ  100215
+GLU_PARAMETRIC_ERROR            equ  100216
+GLU_DOMAIN_DISTANCE             equ  100217
+GLU_MAP1_TRIM_2                 equ  100210
+GLU_MAP1_TRIM_3                 equ  100211
+GLU_OUTLINE_POLYGON             equ  100240
+GLU_OUTLINE_PATCH               equ  100241
+GLU_NURBS_ERROR1                equ  100251
+GLU_NURBS_ERROR2                equ  100252
+GLU_NURBS_ERROR3                equ  100253
+GLU_NURBS_ERROR4                equ  100254
+GLU_NURBS_ERROR5                equ  100255
+GLU_NURBS_ERROR6                equ  100256
+GLU_NURBS_ERROR7                equ  100257
+GLU_NURBS_ERROR8                equ  100258
+GLU_NURBS_ERROR9                equ  100259
+GLU_NURBS_ERROR10               equ  100260
+GLU_NURBS_ERROR11               equ  100261
+GLU_NURBS_ERROR12               equ  100262
+GLU_NURBS_ERROR13               equ  100263
+GLU_NURBS_ERROR14               equ  100264
+GLU_NURBS_ERROR15               equ  100265
+GLU_NURBS_ERROR16               equ  100266
+GLU_NURBS_ERROR17               equ  100267
+GLU_NURBS_ERROR18               equ  100268
+GLU_NURBS_ERROR19               equ  100269
+GLU_NURBS_ERROR20               equ  100270
+GLU_NURBS_ERROR21               equ  100271
+GLU_NURBS_ERROR22               equ  100272
+GLU_NURBS_ERROR23               equ  100273
+GLU_NURBS_ERROR24               equ  100274
+GLU_NURBS_ERROR25               equ  100275
+GLU_NURBS_ERROR26               equ  100276
+GLU_NURBS_ERROR27               equ  100277
+GLU_NURBS_ERROR28               equ  100278
+GLU_NURBS_ERROR29               equ  100279
+GLU_NURBS_ERROR30               equ  100280
+GLU_NURBS_ERROR31               equ  100281
+GLU_NURBS_ERROR32               equ  100282
+GLU_NURBS_ERROR33               equ  100283
+GLU_NURBS_ERROR34               equ  100284
+GLU_NURBS_ERROR35               equ  100285
+GLU_NURBS_ERROR36               equ  100286
+GLU_NURBS_ERROR37               equ  100287
+GLU_CW                          equ  100120
+GLU_CCW                         equ  100121
+GLU_INTERIOR                    equ  100122
+GLU_EXTERIOR                    equ  100123
+GLU_UNKNOWN                     equ  100124
+GLU_BEGIN                       equ  GLU_TESS_BEGIN
+GLU_VERTEX                      equ  GLU_TESS_VERTEX
+GLU_END                         equ  GLU_TESS_END
+GLU_ERROR                       equ  GLU_TESS_ERROR
+GLU_EDGE_FLAG                   equ  GLU_TESS_EDGE_FLAG
+
+
+
+;------------------------------------------MAKRA-----------------------------------------------
+ ;odk³ada na stos wartoœæ bezpoœredni¹ typu float (DD)
+ ;pushfl  0.45
+
+pushfl	MACRO fl1
+	db	68h
+	dd	fl1
+ENDM
+;---------
+ ;zwraca cos argumentu
+ 
+cosfl	MACRO	arg1
+ fld	arg1
+ fcos
+ fstp	arg1
+ENDM
+;---------
+ ;zwraca sin argumentu
+
+sinfl	MACRO	arg1
+ fld	arg1
+ fsin
+ fstp	arg1
+ENDM
+;---------
+ ;odklada na stos zmienna DD jako DQ
+ ;pushdfl  zm
+
+pushdf	MACRO _liczba_
+	fld	dword ptr [_liczba_]
+	sub	esp,8
+	fstp	qword ptr [esp]
+ENDM
+;---------
+ ;odk³ada na stos wartoœæ bezpoœredni¹ typu double float (DQ)
+ ;pushdfl  1.33333e0
+
+pushdfl	MACRO liczba
+LOCAL zmienna, Omin
+	jmp	short Omin
+	zmienna	dq	liczba
+Omin:
+	fld	qword ptr [&zmienna&]
+	sub	esp,8
+	fstp	qword ptr [esp]
+ENDM
+;---------
+ ;mnozy liczbe przez czynnik, wynik do liczby
+ ;czynnik pozostaje bez zmian
+ 
+mulfl		MACRO		_liczba_,_czynnik_
+	fld	_liczba_
+	fmul	_czynnik_
+	fstp	_liczba_
+ENDM
+;---------
+ ;dzieli liczbe przez czynnik, wynik do liczby
+ ;czynnik pozostaje bez zmian
+
+divfl		MACRO		_liczba_,_czynnik_
+	fld	_liczba_
+	fdiv	_czynnik_
+	fstp	_liczba_
+ENDM
+;---------
+ ;dodaje do zmiennej wartoœæ innej zmiennej (DD DQ...)
+ ;addfl  Kacik,Zmiana_Kacika
+
+addfl		MACRO		double1, increment
+	fld	double1
+	fadd	increment
+	fstp	double1
+ENDM
+;---------
+ ;odejmuje od zmiennej wartoœæ innej zmiennej (DD DQ...)
+ ;subfl  Kacik,Zmiana_Kacika
+
+subfl		MACRO		double1, decrement
+	fld	double1
+	fsub	decrement
+	fstp	double1
+ENDM
+;---------
+Vertex3f	MACRO	x,y,z
+        pushfl	z
+        pushfl	y
+        pushfl	x
+        call	glVertex3f
+ENDM
+;---------
+Color3f	MACRO		r,g,b
+	pushfl 	b
+	pushfl 	g
+	pushfl 	r
+	call 	glColor3f
+ENDM
+
+;--------------------------------------------ZMIENNE--------------------------------------------
+MSG					STRUC
+	MSG_hWnd			dd	0
+	MSG_message			dd	0
+	MSG_wParam			dd	0
+	MSG_lParam			dd	0
+	MSG_time			dd	0
+	MSG_pt				dd	0
+MSG					ENDS
+;---------
+DEVMODE				STRUC
+	DM_dmDeviceName			db	32 dup (0)
+	DM_dmSpecVersion		dw	0
+	DM_dmDriverVersion		dw	0
+	DM_dmSize			dw	0
+	DM_dmDriverExtra		dw	0
+	DM_dmFields			dd	0
+	DM_dmOrientation		dw	0
+	DM_dmPaperSize			dw	0
+	DM_dmPaperLength		dw	0
+	DM_dmPaperWidth			dw	0
+	DM_dmScale			dw	0
+	DM_dmCopies			dw	0
+	DM_dmDefaultSource		dw	0
+	DM_dmPrintQuality		dw	0
+	DM_dmColor			dw	0
+	DM_dmDuplex			dw	0
+	DM_dmYResolution		dw	0
+	DM_dmTTOption			dw	0
+	DM_dmCollate			dw	0
+	DM_dmFormName			db	32 dup (0)
+	DM_dmLogPixels			dw	0
+	DM_dmBitsPerPel 		dd	0
+	DM_dmPelsWidth			dd	0
+	DM_dmPelsHeight			dd	0
+	DM_dmDisplayFlags		dd	0
+	DM_dmDisplayFrequency		dd	0
+DEVMODE				ENDS
+;----------
+WNDCLASS				STRUC
+	WC_style			dd	0
+	WC_lpfnWndProc			dd	0
+	WC_cbClsExtra			dd	0
+	WC_cbWndExtra			dd	0
+	WC_hInstance			dd	0
+	WC_hIcon			dd	0
+	WC_hCursor			dd	0
+	WC_hbrBackground		dd	0
+	WC_lpszMenuName			dd	0
+	WC_lpszClassName		dd	0
+WNDCLASS				ENDS
+;----------
+RECT					STRUC
+	RECT_left			dd	0
+	RECT_top			dd	0
+	RECT_right			dd	0
+	RECT_bottom			dd	0
+RECT					ENDS
+;----------
+PIXELFORMATDESCRIPTOR		STRUC
+	PFD_nSize			dw	0
+	PFD_nVersion		dw	0
+	PFD_dwFlags		dd	0
+	PFD_iPixelType		db	0
+	PFD_cColorBits		db	0
+	PFD_cRedBits		db	0
+	PFD_cRedShift		db	0
+	PFD_cGreenBits		db	0
+	PFD_cGreenShift		db	0
+	PFD_cBlueBits		db	0
+	PFD_cBlueShift		db	0
+	PFD_cAlphaBits		db	0
+	PFD_cAlphaShift		db	0
+	PFD_cAccumBits		db	0
+	PFD_cAccumRedBits	db	0
+	PFD_cAccumGreenBits	db	0
+	PFD_cAccumBlueBits	db	0
+	PFD_cAccumAlphaBits	db	0
+	PFD_cDepthBits		db	0
+	PFD_cStencilBits  	db	0
+	PFD_cAuxBuffers		db	0
+	PFD_iLayerType		db	0
+	PFD_bReserved		db	0
+	PFD_dwLayerMask		dd	0
+	PFD_dwVisibleMask	dd	0
+	PFD_dwDamageMask	dd	0
+PIXELFORMATDESCRIPTOR		ENDS
+;---------
+pfd				PIXELFORMATDESCRIPTOR <size PIXELFORMATDESCRIPTOR,1,PFD_DRAW_TO_WINDOW+PFD_SUPPORT_OPENGL+PFD_DOUBLEBUFFER,PFD_TYPE_RGBA,16,0,0,0,0,0,0,0,0,0,0,0,0,0,16,0,0,PFD_MAIN_PLANE,0,0,0,0>
+Komunikat			MSG		<0>
+dmScreenSettings		DEVMODE		<0>
+KlasaOkna			WNDCLASS	<0>
+WindowRect			RECT		<0>
+PixelFormat			dd		0
+UchwytOkna			dd		0
+hDC				dd		0
+hRC				dd		0
+UchwytProcesu			dd		0
+CGLW_caption			dd		offset NazwaProgramu
+done				dd		FALSE
+;---------
+KEY				db		256 dup (0)
+;---------
+NazwaProgramu:
+NazwaKlasyOknaGL		db	'OpenGL',0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
